@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: auto;
+}
+.page {
+    margin: 20px auto;
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
+    width: 400px;
+    padding: 20px 40px;
+    border-width: 10px;
+  }
+.box {
+    position: relative;
+    max-width: 320px;
+    margin: auto;
+}
+.id, .pw {
+    width: 100%;
+    margin: 20px 0;
+}  
+.id label, .pw label {
+    font-weight: 600;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.id input, .pw input {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    padding: 15px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid;
+    outline: none;
+    width: 100%;
+}
+.caption {
+    margin: 20px;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.caption a {
+    text-decoration: none;
+    color: rgb(131, 131, 131);
+    margin-right: 0;
+}
+.caption a:hover {
+    color: rgb(236, 107, 107);
+}
+.name, #id2,.id2, .password2,.passwordConfirm,.number {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 12px;
+    height: 25px;
+    padding: 10px;
+    margin: 15px 0;
+    background: none;
+    border-bottom: 1px solid #000000;
+}
+
+#id2,
+.number {
+  width: 78%;
+}
+
+.cheak,.certi {
+  font-size: 12px;
+  height: 30px;
+  border: 0;
+  border-radius: 10px;
+}
+
+.btn button {
+    font-family: "S-CoreDream-3Light";
+    width: 100%;
+    height: 50px;
+    border: 0;
+    margin: 20px 0;
+    border-radius: 50px;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.5s;
+    color: rgb(255, 255, 255);
+    background-color: #ffbdbd;
+}
+.btn button:hover {
+    background: color #ffa5a5;
+    box-shadow: 0 3px 6px rgb(255, 169, 169);
+}
