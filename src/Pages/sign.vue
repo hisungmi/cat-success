@@ -7,9 +7,8 @@
           <input type="name" class="name" placeholder="이름" v-model="name" />
         </div>
         <div>
-          <input type="id" id="id2" placeholder="아이디" v-model="id" /><button
-            class="cheak"
-          >
+          <input type="id" id="id2" placeholder="아이디" v-model="id" />
+          <button class="cheak">
             중복확인
           </button>
         </div>

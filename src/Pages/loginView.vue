@@ -3,24 +3,26 @@
   <div class="page">
     <div class="box">
       <div class="id">
-        <label for="id">아이디</label><br />
+        <!-- <label for="id">아이디</label><br />
         <input
           type="text"
           v-model="id"
           placeholder="Username"
           required
           autofocus
-        />
+        /> -->
+        <v-text-field v-model="id" label="Username"></v-text-field>
       </div>
       <div class="pw">
-        <label for="pw">비밀번호</label><br />
+        <!-- <label for="pw">비밀번호</label><br />
         <input
           type="password"
           v-model="pw"
           placeholder="**********"
           required
           autofocus
-        />
+        /> -->
+        <v-text-field v-model="pw" label="password"></v-text-field>
       </div>
     </div>
     <div class="caption">
@@ -39,37 +41,21 @@ export default {
   name: "loginView",
   data() {
     return {
-      id: null,
-      pw: null,
-      allUsers: [
-        { id: sungmi, name: "sungmi", pw: "222" },
-        { id: bumjun, name: "bumjune", pw: "111" },
-      ],
+      id: "",
+      pw: "",
     };
   },
   methods: {
     login() {
-      let selectedUser = null
-      this.allUsers.forEach(user => {
-        if (user.id === this.id) selectedUser = user
-      })
-      if (selectedUser === null) alert("입력하신 아이디가 없습니다.")
-      else {
-        if(user.pw !== this.pw)
-        alert("아이디와 비밀번호가 일치하지 않습니다.")
-        else {
-          alert("로그인이 완료되었습니다.")
-        }
-      }
-      // this.$router.replace("hello");
-      // this.$axios
-      //   .post("/login", data)
-      //   .then((res) => {
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      this.$router.replace("hello");
+      this.$axios
+        .post("/login", data)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
