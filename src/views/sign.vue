@@ -4,20 +4,17 @@
       <h3>회원가입</h3>
       <div class="container">
         <div>
-          <input type="name" class="name" placeholder="이름" v-model="name" />
+          <input type="id" id="id2" placeholder="아이디" v-model="id" />
         </div>
         <div>
-          <input type="id" id="id2" placeholder="아이디" v-model="id" />
-          <button class="cheak">
-            중복확인
-          </button>
+          <input type="name" class="name" placeholder="이름" v-model="name" />
         </div>
         <div>
           <input
             type="password"
             class="password2"
             placeholder="비밀번호"
-            v-model="password"
+            v-model="psword"
           />
         </div>
         <div>
@@ -25,19 +22,19 @@
             type="password"
             class="passwordConfirm"
             placeholder="비밀번호 확인"
-            v-model="passwordConfirm"
+            v-model="confirmpsword"
           />
         </div>
-        <div>
+        <!-- <div>
           <input
             type="text"
-            class="number"
+            class="adnumber"
             maxlength="11"
-            placeholder="번호 -를 제외하고 입력해주세요."
-            v-model="number"
+            placeholder="관리자번호"
+            v-model="adnumber"
           />
           <button type="submit" class="certi">인증요청</button>
-        </div>
+        </div> -->
         <div class="btn">
           <button type="submit" @click="SignUp()">가입하기</button>
           <span
@@ -57,24 +54,22 @@ export default {
     return {
       name: "",
       id: "",
-      password: "",
-      passwordConfirm: "",
-      number: "",
-      msg: "가입.",
+      psword: "",
+      confirmpsword: "",
     };
   },
   methods: {
     SignUp() {
+      const data = {
+        id :'',
+        name:'',
+        psword : '',
+        confirmpsword : '',
+      }
       this.$axios
-        .post("", {
-          name: "",
-          id: "",
-          password: "",
-          passwordConfirm: "",
-          number: "",
-        })
+        .post('http://172.31.3.229:3000/api/login', data)
         .then(function (response) {
-          if (response.data.code == 0) {
+          if (response.data.code == 200) {
             alert({
               open: true,
               title: "Confirm",
@@ -85,7 +80,7 @@ export default {
             });
           } else {
             let message = response.data.message;
-            if (response.data.code == 10000) {
+            if (response.data.code == 404) {
               message =
                 "User ID is duplicated. Please enter a different User ID. ";
             }

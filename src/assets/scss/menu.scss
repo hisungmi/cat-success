@@ -1,0 +1,48 @@
+body{
+    margin: 0;
+    padding: 0;
+
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;  
+}
+
+ .mainmenu, .subemenu {
+     margin:0;
+     padding: 0;
+     list-style-type: none;
+ }
+
+ .mainmenu > li{
+     float:left;
+     border: 1px solid;
+ }
+
+ .mainmenu > li > a{
+     text-align: center;
+     text-decoration: none;
+     display: block;
+     padding: 12px ;
+     width: auto;
+     letter-spacing: 0.05em;
+ }
+ .subemenu{
+     position: absolute;
+     background: rgb(255, 187, 241);
+     opacity: 0;
+     visibility: hidden;
+ }
+ .subemenu > li{
+     padding: 14px;
+     border-bottom: 1px solid rgb(0, 0, 0);
+ }
+ .subemenu > li > a{
+     color:rgb(0, 0, 0);
+     text-decoration: none;
+ }
+
+ .mainmenu >li:hover .subemenu {
+     opacity: 1;
+     visibility: visible;
+ }

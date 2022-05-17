@@ -21,15 +21,15 @@ body {
     max-width: 320px;
     margin: auto;
 }
-.id, .pw {
+.ad-num, .id, .pw {
     width: 100%;
     margin: 20px 0;
 }  
-.id label, .pw label {
+.ad-num label, .id label, .pw label {
     font-weight: 600;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
-.id input, .pw input {
+.ad-num input, .id input, .pw input {
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     padding: 15px;
     border: none;
@@ -53,7 +53,7 @@ body {
 .caption a:hover {
     color: rgb(236, 107, 107);
 }
-.name, #id2,.id2, .password2,.passwordConfirm,.number {
+.name, #id2,.id2, .password2,.passwordConfirm,.adnumber {
     width: 100%;
     border: none;
     outline: none;
@@ -64,11 +64,6 @@ body {
     margin: 15px 0;
     background: none;
     border-bottom: 1px solid #000000;
-}
-
-#id2,
-.number {
-  width: 78%;
 }
 
 .cheak, .certi {
