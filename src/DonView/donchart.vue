@@ -9,9 +9,10 @@
         </ul>  
     </div>
     <div class="content">
-      <body>
-         <h3>차트</h3>
-      </body> 
+      <div>
+        <h3>차트</h3>
+        <canvas id="planet-chart" width="auto"></canvas>
+      </div>
     </div>    
     <div class="footer">
         성미 010-7777-8888
@@ -20,7 +21,21 @@
 </template>
 
 <script>
+import Chart from 'chart.js'
+import planetChartData from '../planet-data.js'
 
+export default{
+  name: 'donchart',
+  data() {
+    return {
+      planetChartData: planetChartData
+    }
+  },
+  mounted() {
+    const ctx = document.getElementById('planet-chart');
+    new Chart(ctx, this.planetChartData);
+  }
+};
 </script>
 
 <style>

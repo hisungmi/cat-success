@@ -3,7 +3,7 @@
     <head-area />
     <Menubar />
     <router-view />
-    <PlanetChart />
+    <!-- <PlanetChart/> -->
     <!-- <Table /> -->
   </div>
 </template>

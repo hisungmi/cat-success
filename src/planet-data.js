@@ -1,21 +1,21 @@
 export const planetChartData = {
     type: "line",
     data: {
-      labels: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
+      labels: [ 'January', 'February', 'March','April', 'May', 'June','July', 'August', 'September','October', 'November', 'December'],
       datasets: [
         {
-          label: "Number of Moons",
-          data: [0, 0, 1, 2, 79, 82, 27, 14],
+          label: "Temperature",
+          data: [26,25,27,25,24,26,26,21,25,26,26,24],
           backgroundColor: "rgba(54,73,93,.5)",
           borderColor: "#36495d",
-          borderWidth: 3
+          borderWidth: 1
         },
         {
-          label: "Planetary Mass (relative to the Sun x 10^-6)",
-          data: [0.166, 2.081, 3.003, 0.323, 954.792, 285.886, 43.662, 51.514],
+          label: "Humidity",
+          data: [60,61,60,63,61,60,62,61,62,60,60,63],
           backgroundColor: "rgba(71, 183,132,.5)",
           borderColor: "#47b784",
-          borderWidth: 3
+          borderWidth: 1
         }
       ]
     },

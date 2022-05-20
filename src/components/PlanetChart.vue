@@ -16,7 +16,7 @@ export default {
       planetChartData: planetChartData
     }
   },
-  mounrws() {
+  mounted() {
     const ctx = document.getElementById('planet-chart');
     new Chart(ctx, this.planetChartData);
   }
