@@ -1,4 +1,4 @@
-const ctx = document.getElementById('example');
+const ctx = document.getElementById('planet-chart');
 const exampleChart = new Chart(ctx, {
   type: '',
   data: [],

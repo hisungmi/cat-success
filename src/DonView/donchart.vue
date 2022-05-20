@@ -10,9 +10,7 @@
     </div>
     <div class="content">
       <body>
-         <div>
-          <canvas id="planet-chart"></canvas>
-        </div>
+         <h3>차트</h3>
       </body> 
     </div>    
     <div class="footer">
@@ -22,57 +20,7 @@
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs/legacy'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
-
-export default {
-  name: 'donchart',
-  components: { Bar },
-  props: {
-    chartId: {
-      type: String,
-      default: 'bar-chart'
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label'
-    },
-    width: {
-      type: Number,
-      default: 400
-    },
-    height: {
-      type: Number,
-      default: 400
-    },
-    cssClasses: {
-      default: '',
-      type: String
-    },
-    styles: {
-      type: Object,
-      default: () => {}
-    },
-    plugins: {
-      type: Object,
-      default: () => {}
-    }
-  },
-  data() {
-    return {
-      chartData: {
-        labels: [ 'January', 'February', 'March','April', 'May', 'June','July', 'August', 'September','October', 'November', 'December' ],
-        datasets: [ { data: [26,25,27,25,24,26,26,21,25,26,26,24] } ]
-      },
-      chartOptions: {
-        responsive: false
-      }
-    }
-  }
-
-}
 </script>
 
 <style>

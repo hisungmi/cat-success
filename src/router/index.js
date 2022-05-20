@@ -101,12 +101,6 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../cheak/four.vue"),
   },
-  {
-    path: "/List",
-    name: "List",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../차트/Vuejs.vue"),
-  },
 ];
 
 const router = new VueRouter({

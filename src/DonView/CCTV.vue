@@ -11,7 +11,6 @@
     <div class="content">
     <body>
          <!-- <img src="http://172.20.10.5:8091/?action=stream" width="500px" height="300px">
-         
          </img> -->
     </body>
     </div>    
