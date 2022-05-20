@@ -1,33 +1,45 @@
 <template>
-<head>
-    <script src ="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <canvas id="myChart" style="width: 900px; height: 900px;" ></canvas>
-            </div>
-        </div>
-    </div>
-</body>
+    <canvas id="myChart" width="400" height="400"></canvas>
 </template>
 
 
 <script>
-let myChatOne = document.getElementById('myChartOne').getContext('2d');
-
-let barChart = new Chart(myChatOne, {
-    type : 'line',
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
     data: {
-        labels : ['학원','연구원','출판사','미디어사','위니브'],
-        datasets : [{
-            label : '바울랩매출액',
-            data : [
-                10, 100, 1000,200,300
-            ]
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
         }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
     }
-})
+});
 </script>
  

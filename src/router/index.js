@@ -9,7 +9,7 @@ const routes = [
     path: "/",
     name: "home",
     component: () =>
-    import(/* webpackChunkName: "about" */ "../views/Home.vue"),
+      import(/* webpackChunkName: "about" */ "../views/Home.vue"),
   },
   {
     path: "/login",
@@ -21,7 +21,7 @@ const routes = [
     path: "/SignupForm",
     name: "SignupForm",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/sign.vue"),
+      import(/* webpackChunkName: "about" */ "../views/SignupPage.vue"),
   },
   {
     path: "/findidForm",

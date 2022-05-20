@@ -10,17 +10,9 @@
     </div>
     <div class="content">
       <body>
-         <Bar
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-  />
+         <div>
+          <canvas id="planet-chart"></canvas>
+        </div>
       </body> 
     </div>    
     <div class="footer">

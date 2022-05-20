@@ -3,6 +3,7 @@
     <head-area />
     <Menubar />
     <router-view />
+    
     <!-- <Table /> -->
   </div>
 </template>

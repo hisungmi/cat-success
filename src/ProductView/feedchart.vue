@@ -8,7 +8,7 @@
         </ul>  
     </div>
     <div class="content">
-
+      <line-chart></line-chart>
     </div>    
     <div class="footer">
         성미 010-7777-8888
@@ -17,9 +17,12 @@
 </template>
 
 <script>
+import LineChart from '@/차트/LineChart.vue'
 export default {
     name: "feedchart",
-
+    components: {
+      LineChart,
+    }
 }
 </script>
 

@@ -89,23 +89,26 @@ export default {
           this.$axios
           .post('http://172.31.3.229:3000/api/login', data )
           .then((res) => {
+            
+            alert("로그인에 성공했습니다.");
             console.log(res);
             // this.$router.replace('hello');
           })
           .catch((error) => {
+            alert("로그인에 실패했습니다. ");
             console.log(error);
           });
       },
-      login() {
-        if (this.user.id == '') {alert('아이디를 입력해주세요.'); return;}
-        if (this.user.psword == '') {alert('비밀번호를 입력해주세요.'); return;}
-        this.$http.post('/api/login', {user:this.user}).then((res) => {
-          if (res.data.success == true) {
-            alert(res.data.message);
-            this.$router.push('/');
-          } else {alert(res.data.message); }
-        });
-      }
+      // login() {
+      //   if (this.user.id == '') {alert('아이디를 입력해주세요.'); return;}
+      //   if (this.user.psword == '') {alert('비밀번호를 입력해주세요.'); return;}
+      //   this.$http.post('/api/login', {user:this.user}).then((res) => {
+      //     if (res.data.success == true) {
+      //       alert(res.data.message);
+      //       this.$router.push('/');
+      //     } else {alert(res.data.message); }
+      //   });
+      // }
     },
 };
 

@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-    <h1>돈사그래프</h1>
+    <h1>CCTV</h1>
     <div class="sidebar">
         <ul>
           <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
