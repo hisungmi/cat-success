@@ -1,5 +1,5 @@
 <template>
-  <body>
+<body>
 <div id="wrap">
     <header id="header">
         <h1 class="main">
@@ -8,7 +8,7 @@
     </header>
     <nav id="nav">
         <ul>
-            <li>{{Temperature}}</li>
+            <li>{{Temperature}} </li>
             <li>{{Humidity}}</li>
             <li>{{gas}}</li>   
         </ul>       
@@ -25,9 +25,11 @@
 </template>
 
 <script>
+    
+
 import App from '@/App.vue'
 export default {
-  components: { App },
+  components: { App, },
   data() {
       return{
           Temperature:'온도데이터',
@@ -36,8 +38,9 @@ export default {
           feed:'사료량 그래프',
           Notification:'실시간 알림현황'
       }
-  }
+  },
 
+  
 }
 </script>
 

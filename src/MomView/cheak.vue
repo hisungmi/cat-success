@@ -20,12 +20,13 @@
         성미 010-7777-8888
     </div>
 </div>
+
 </template>
 
 <script>
+
 export default {
     name: "cheak",
-
 }
 </script>
 

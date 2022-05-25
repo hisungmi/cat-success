@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <h3>차트</h3>
     <canvas id="planet-chart"></canvas>
@@ -25,4 +25,4 @@ export default {
 
 <style>
 
-</style>
+</style> -->

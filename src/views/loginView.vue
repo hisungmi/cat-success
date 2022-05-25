@@ -83,8 +83,8 @@ export default {
   methods: {
     login() {
       const data = {
-        id :'',
-        psword : '',
+        id :'asdf',
+        psword : 'asdf',
         }
           this.$axios
           .post('http://172.31.3.229:3000/api/login', data )

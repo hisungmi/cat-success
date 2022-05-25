@@ -3,6 +3,7 @@
     <head-area />
     <Menubar />
     <router-view />
+    <!-- <LineChart /> -->
     <!-- <PlanetChart/> -->
     <!-- <Table /> -->
   </div>
@@ -11,6 +12,7 @@
 import headArea from './components/head.vue';
 import Menubar from './components/menu.vue';
 import PlanetChart from './components/PlanetChart.vue';
+import LineChart from './components/Line.vue';
 // import Table from './components/Dth.vue';
 
 export default {
@@ -19,6 +21,7 @@ export default {
     headArea,
     Menubar,
     PlanetChart,
+    LineChart,
     //Table,
 },
 };
