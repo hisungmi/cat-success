@@ -8,15 +8,15 @@
     </header>
     <nav id="nav">
         <ul>
-            <li>{{ db }}</li>
-            <li>a</li>
-            <li>가스</li>   
+            <li><a>{{ db.temp }}</a></li>
+            <li><a>{{ db.humid }}</a></li>
+            <li><a> 가스량 </a></li>   
         </ul>       
     </nav>
     <nav id="nav1">
         <ul>
-            <li>사료량</li>
-            <li>알림</li>   
+            <li><a>사료량</a></li>
+            <li><a>알림현황</a></li>   
         </ul>       
     </nav>
 
@@ -53,7 +53,7 @@ export default {
 //     //       console.log(this.db);
 //     //   }
 //   },
-  created() {
+  mounted() {
     //   this.init();
     this.fncStartMqtt();
   },
@@ -95,7 +95,7 @@ export default {
       onMessageArrived: function(message)
       {
         console.log("onMessageArrived : " + message.payloadString);
-        this.db = message.payloadString
+        this.db = JSON.parse(message.payloadString);
         
       }
 
@@ -133,6 +133,10 @@ img{
     height: 200px;
     border-radius: 50px;
 }
+#nav ul li a {
+  display: flex;
+  align-items: center;
+}
 #nav1 ul {
     margin:0;
     padding:0;
@@ -150,5 +154,9 @@ img{
     width: 400px;
     height: 300px;
     border-radius: 50px;
+}
+#nav1 ul li a {
+  display: flex;
+  align-items: center;
 }
 </style>
