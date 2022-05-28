@@ -1,8 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from '@/store';
 // import HomeView from "../views/HomeView.vue";
 
 Vue.use(VueRouter);
+Vue.use(store);
 
 const routes = [
   {

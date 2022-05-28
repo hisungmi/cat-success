@@ -8,15 +8,15 @@
     </header>
     <nav id="nav">
         <ul>
-            <li>{{Temperature}} </li>
-            <li>{{Humidity}}</li>
-            <li>{{gas}}</li>   
+            <li>{{ db }}</li>
+            <li>a</li>
+            <li>가스</li>   
         </ul>       
     </nav>
     <nav id="nav1">
         <ul>
-            <li>{{feed}}</li>
-            <li>{{Notification}}</li>   
+            <li>사료량</li>
+            <li>알림</li>   
         </ul>       
     </nav>
 
@@ -24,24 +24,90 @@
 </body>
 </template>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 <script>
-    
-
 import App from '@/App.vue'
+
+var mqttClient= null;
+var mqtt_host = "broker.hivemq.com";
+var mqtt_port = "8000";
+var mqtt_clientId = "clientID-" + parseInt(Math.random() * 100);        // 랜덤 클라이언트 ID 
+var mqtt_topic = "test/hello";
+
+// import{ mapActions, mapState } from 'vuex'
 export default {
-  components: { App, },
+  components: { App },
   data() {
       return{
-          Temperature:'온도데이터',
-          Humidity:'습도데이터',
-          gas:'가스량',
-          feed:'사료량 그래프',
-          Notification:'실시간 알림현황'
-      }
+        db:[]
+      };
   },
+//   created: {
+//     //   this.data = Json.parse(data);
+//     //   myFunction: function() {
+//     //       this.db = JSON.parse(this.dat);
+//     //       console.log(this.db);
+//     //   }
+//   },
+  mounted() {
+    //   this.init();
+   mqttClient = new Paho.MQTT.Client(mqtt_host, Number(mqtt_port), mqtt_clientId);
+    
+    mqttClient.onConnectionLost = onConnectionLost;
+    mqttClient.onMessageArrived = onMessageArrived;
+    
+    mqttClient.connect({
+        onSuccess : onConnect
+        ,onFailure : onFailure
+    });
+      
+  },
+//   computed: {
+//     //   mapState({
+//     //       data: 'db'
+//     //   })
+//   },
+  methods: {
+    //    fncStartMqtt: function ()
+    //   {
+    //     mqttClient = new Paho.MQTT.Client(mqtt_host, Number(mqtt_port), mqtt_clientId);
+    
+    //     mqttClient.onConnectionLost = onConnectionLost;
+    //     mqttClient.onMessageArrived = onMessageArrived;
+    
+    //     mqttClient.connect({
+    //         onSuccess : onConnect
+    //         ,onFailure : onFailure
+    //     });
+    //   },
+      onConnect: function ()
+      {
+        console.log("connet : onConnect..");
+     
+        mqttClient.subscribe(mqtt_topic);   
+      },
+      onFailure: function ()
+      {
+        console.log("connet : onFailure..");
+      },
+      onConnectionLost: function(responseObject)
+      {
+        console.log("onConnectionLost : " + responseObject.errorMessage);
+      },
+      onMessageArrived: function(message)
+      {
+        console.log("onMessageArrived : " + message.payloadString);
+        this.db = message.payloadString
+        
+      }
 
-  
-}
+    //   mapActions({
+    //       init: 'dbInit'
+    //   });
+     
+  }
+};
 </script>
 
 <style scoped>

@@ -6,13 +6,13 @@
         <v-text-field v-model="adnum" label="ad-number"></v-text-field>
       </div> -->
       <div class="id">
-        <v-text-field v-model="id" label="UserId"></v-text-field>
+        <v-text-field v-model="id" ref="Id" label="UserId"></v-text-field>
       </div>
       <!-- <div class="id">
         <v-text-field v-model="id" label="Username"></v-text-field>
       </div> -->
       <div class="pw">
-        <v-text-field v-model="psword" label="UserPassword"></v-text-field>
+        <v-text-field v-model="psword" ref="Psword" label="UserPassword"></v-text-field>
       </div>
       <!-- <div class="type">
         <v-text-field v-model="userType" label="ADM"></v-text-field>
@@ -25,6 +25,7 @@
     </div>
     <div class="btn">
       <button type="submit" @click="login()">로그인</button>
+      <button @click.prevent="cancel()" >취소</button>
     </div>
   </div>
   <!-- <div id="Login">
@@ -81,34 +82,63 @@ export default {
   },
  
   methods: {
-    login() {
-      const data = {
-        id :'asdf',
-        psword : 'asdf',
-        }
-          this.$axios
-          .post('http://172.31.3.229:3000/api/login', data )
-          .then((res) => {
+    // login() {
+    //   const data = {
+    //     id :'asdf',
+    //     psword : 'asdf',
+    //     }
+    //       this.$axios
+    //       .post('http://172.31.3.229:3000/api/login', data )
+    //       .then((res) => {
             
-            alert("로그인에 성공했습니다.");
-            console.log(res);
-            // this.$router.replace('hello');
+    //         alert("로그인에 성공했습니다.");
+    //         console.log(res);
+    //         // this.$router.replace('hello');
+    //       })
+    //       .catch((error) => {
+    //         alert("로그인에 실패했습니다. ");
+    //         console.log(error);
+    //       });
+    //   },
+        login() {
+          const data = {
+            id: 'a',
+            psword : '1',
+          }
+          this.$axios
+          .post('', data )
+          .then((res) => {
+            if (this.id == "") {
+            alert('아이디를 입력해주세요.');
+            this.$refs.id.focus();
+            return; 
+          }
+          else if (this.psword == "") {
+            alert('비밀번호를 입력해주세요.');
+            this.$refs.psword.focus();
+            return;
+          }
+          alert("로그인에 성공했습니다. ");
+          console.log(res);
           })
-          .catch((error) => {
-            alert("로그인에 실패했습니다. ");
+          .catch((error) =>{
+            alert("로그인에 실패했습니다.");
             console.log(error);
-          });
+          })
+          
+        // this.$http.post('/api/login', {user:this.user}).then((res) => {
+        //   if (res.data.success == true) {
+        //     alert(res.data.message);
+        //     this.$router.push('/');
+        //   } else {alert(res.data.message); }
+        // });
       },
-      // login() {
-      //   if (this.user.id == '') {alert('아이디를 입력해주세요.'); return;}
-      //   if (this.user.psword == '') {alert('비밀번호를 입력해주세요.'); return;}
-      //   this.$http.post('/api/login', {user:this.user}).then((res) => {
-      //     if (res.data.success == true) {
-      //       alert(res.data.message);
-      //       this.$router.push('/');
-      //     } else {alert(res.data.message); }
-      //   });
-      // }
+      cancel() {
+        this.$router.push('/');
+      },
+      mounted() {
+        this.$refs.id.focus();
+      }
     },
 };
 

@@ -5,11 +5,20 @@ module.exports = {
   chainWebpack: config => {
       config.module.rules.delete('eslint');
   },
-
   transpileDependencies: [
     'vuetify'
   ]
 };
+
+// module.exports = {
+//   chainWebpack: config => {
+//     config.module
+//       .rule('html')
+//       .test(/\.html$/)
+//       .use('html-loader')
+//       .loader('html-loader')
+//   }
+// };
 
 // module.exports = {
 //   // 개발 서버 설정

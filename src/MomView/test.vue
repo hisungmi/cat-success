@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
     <h1 id="data">테스트    </h1>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
@@ -78,6 +79,7 @@
     //     mqttClient.send(mqtt_topic, sendMsg);
     // }
 </script>
+</html>
 <style scoped>
     body{
         background-color: rgb(253, 201, 201);

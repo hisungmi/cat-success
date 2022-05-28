@@ -14,7 +14,6 @@
         </ul>  
     </div>
     <div class="content">
-
     </div>    
     <div class="footer">
         성미 010-7777-8888
@@ -24,10 +23,9 @@
 </template>
 
 <script>
-
 export default {
     name: "cheak",
-}
+    }
 </script>
 
 <style scoped>

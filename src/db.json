@@ -1,0 +1,21 @@
+{"data":[
+	{
+		"user":"AAA",
+		"genre":"myS",
+		"location":"A3",
+		"size":"2"
+	},
+	{
+		"user":"BBB",
+		"genre":"myS",
+		"location":"A13",
+		"size":"1"
+	},
+	{
+		"user":"CCC",
+		"genre":"myS",
+		"location":"B2",
+		"size":"2"
+	}
+]
+}
