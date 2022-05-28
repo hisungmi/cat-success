@@ -24,10 +24,13 @@
 </body>
 </template>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 <script>
 import App from '@/App.vue'
+import mqttws31 from '@/plugins/mqttws31'
+import mqttws31min from '@/plugins/mqttws31-min'
+
 
 var mqttClient= null;
 var mqtt_host = "broker.hivemq.com";
@@ -37,7 +40,7 @@ var mqtt_topic = "test/hello";
 
 // import{ mapActions, mapState } from 'vuex'
 export default {
-  components: { App },
+  components: { App, mqttws31, mqttws31min },
   data() {
       return{
         db:[]
@@ -50,18 +53,9 @@ export default {
 //     //       console.log(this.db);
 //     //   }
 //   },
-  mounted() {
+  created() {
     //   this.init();
-   mqttClient = new Paho.MQTT.Client(mqtt_host, Number(mqtt_port), mqtt_clientId);
-    
-    mqttClient.onConnectionLost = onConnectionLost;
-    mqttClient.onMessageArrived = onMessageArrived;
-    
-    mqttClient.connect({
-        onSuccess : onConnect
-        ,onFailure : onFailure
-    });
-      
+    this.fncStartMqtt();
   },
 //   computed: {
 //     //   mapState({
@@ -69,18 +63,18 @@ export default {
 //     //   })
 //   },
   methods: {
-    //    fncStartMqtt: function ()
-    //   {
-    //     mqttClient = new Paho.MQTT.Client(mqtt_host, Number(mqtt_port), mqtt_clientId);
+       fncStartMqtt: function ()
+      {
+        mqttClient = new Paho.MQTT.Client(mqtt_host, Number(mqtt_port), mqtt_clientId);
     
-    //     mqttClient.onConnectionLost = onConnectionLost;
-    //     mqttClient.onMessageArrived = onMessageArrived;
+        mqttClient.onConnectionLost = this.onConnectionLost;
+        mqttClient.onMessageArrived = this.onMessageArrived;
     
-    //     mqttClient.connect({
-    //         onSuccess : onConnect
-    //         ,onFailure : onFailure
-    //     });
-    //   },
+        mqttClient.connect({
+            onSuccess : this.onConnect
+            ,onFailure : this.onFailure
+        });
+      },
       onConnect: function ()
       {
         console.log("connet : onConnect..");
@@ -91,10 +85,13 @@ export default {
       {
         console.log("connet : onFailure..");
       },
+      
       onConnectionLost: function(responseObject)
       {
         console.log("onConnectionLost : " + responseObject.errorMessage);
+        this.db = responseObject.errorMessage
       },
+
       onMessageArrived: function(message)
       {
         console.log("onMessageArrived : " + message.payloadString);
