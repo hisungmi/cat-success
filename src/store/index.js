@@ -7,32 +7,20 @@ import loginStore from "@/store/modules/login.js";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  // strict: process.env.NODE_ENV !== 'production',
   state: {
     // db:[]
-
   },
   getters: {
 
   },
   mutations: {
-    // setDB(state, data){
-    //   state.db= data;
-    //}
-
+    // readDB(state, dbchild) {
+         
+    // }
   },
   actions: {
-    // dbInit({commit}){
-    //   const res = DB
-    //   const data = res.data.map(d =>({
-    //     // user: d.user,
-    //     // genre: d.genre,
-    //     // location: d.location,
-    //     // size: d.size
-    //     temp : d.temp,
-    //     humid : d.humid
-    //   }))
-    //   commit('setDB',data)
-    // }
+
   },
   modules: {
     loginStore: loginStore

@@ -6,18 +6,53 @@
           <a><img style="cursor: pointer" id="img" src="../assets/home1.png"/></a>
         </h1>
     </header>
+    <!-- <donserve :dbchild="db"></donserve> -->
     <nav id="nav">
         <ul>
-            <li><a>{{ db.temp }}</a></li>
-            <li><a>{{ db.humid }}</a></li>
-            <li><a> 가스량 </a></li>   
+            <li><a><v-gauge
+            unit="℃"
+            :width="width"
+            
+            
+            :min="0"  
+            :max="100"  
+            :value="dbtemp" 
+            :options="options" /></a>
+            </li>
+            <li><a><v-gauge 
+            unit="%" 
+            
+            :width="width" 
+            :min="0" 
+            :max="100"  
+            :value="x" 
+            :options="options" /></a>
+            </li>
+            <li><a>가스량</a></li>
         </ul>       
     </nav>
     <nav id="nav1">
-        <ul>
-            <li><a>사료량</a></li>
-            <li><a>알림현황</a></li>   
-        </ul>       
+        <div>
+          <h3>사료량</h3>
+          <ul>
+            <li>적다.</li>
+            <li>많다.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>알림현황</h3>
+          <ul>
+            <li>
+              2022.06.04 14:22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림떴다.
+            </li>
+            <li>
+              2022.06.04 18:40&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림떴다.
+            </li>
+            <li>
+              2022.06.05 12:20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;알림떴다.
+            </li>
+          </ul>
+        </div>       
     </nav>
 
 </div>
@@ -28,9 +63,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 <script>
 import App from '@/App.vue'
+import donserve from '@/DonView/donserve.vue'
+// import {mapState} from 'vuex';
 import mqttws31 from '@/plugins/mqttws31'
 import mqttws31min from '@/plugins/mqttws31-min'
-
+import VGauge from "vgauge";
+import Gauge from '@chrisheanan/vue-gauge';
 
 var mqttClient= null;
 var mqtt_host = "broker.hivemq.com";
@@ -40,28 +78,46 @@ var mqtt_topic = "test/hello";
 
 // import{ mapActions, mapState } from 'vuex'
 export default {
-  components: { App, mqttws31, mqttws31min },
+  components: { App, donserve, mqttws31, mqttws31min, VGauge, Gauge},
+
   data() {
       return{
-        db:[]
+        db:[],
+        dbtemp:null,
+        dbhumid:null, 
+        x:30, 
+      width: "300px",
+      options: {
+        pointer: {
+          length: 0.4,
+          strokeWidth: 0.035,
+          color: "#000000"
+        },
+        
+        limitMax: 100,
+        limitMin: 0,
+        colorStop: "#FF9CC2",
+        strokeColor: "#D75F8A",
+        generateGradient: true,
+        highDpiSupport: true
+      },
+
       };
   },
-//   created: {
-//     //   this.data = Json.parse(data);
-//     //   myFunction: function() {
-//     //       this.db = JSON.parse(this.dat);
-//     //       console.log(this.db);
-//     //   }
-//   },
+  // computed: {
+  //   ...mapState({
+  //     db: state => state.db
+      
+  //   })
+  // },
+
   mounted() {
     //   this.init();
     this.fncStartMqtt();
+    //  setInterval(() => {
+    //   if (this.x < 100) this.x += 5;
+    // }, 1000);
   },
-//   computed: {
-//     //   mapState({
-//     //       data: 'db'
-//     //   })
-//   },
   methods: {
        fncStartMqtt: function ()
       {
@@ -96,14 +152,14 @@ export default {
       {
         console.log("onMessageArrived : " + message.payloadString);
         this.db = JSON.parse(message.payloadString);
-        
-      }
+        this.dbtemp = this.db.temp;
+        this.dbhumid = this.db.humid;
+      },
 
     //   mapActions({
     //       init: 'dbInit'
-    //   });
-     
-  }
+    //   });     
+  },
 };
 </script>
 
@@ -114,7 +170,7 @@ body{
 img{
   width:100%;
 }
-
+@media all and (min-width: 650px){
 #nav ul {
     margin:0;
     padding:0;
@@ -125,38 +181,91 @@ img{
     bottom: 100px;
     z-index: 1;
 }
+
 #nav ul li {
-    background:rgb(255, 220, 220);
+    /* background:rgb(255, 220, 220); */
     margin:auto;
     display:inline-flex;
+    justify-content: center;
     width: 200px;
     height: 200px;
     border-radius: 50px;
 }
 #nav ul li a {
   display: flex;
+  justify-content: center;
   align-items: center;
+  font-size: 30px;
+  width: 100px;
 }
-#nav1 ul {
+.gauge-title {
+  display: flex;
+  justify-content: center;
+}
+#nav1 {
     margin:0;
     padding:0;
     list-style: none;
     display: flex;
-    justify-content: center;
-    position: relative;
-    bottom: 80px;
-    z-index: 2;
+    justify-content: space-evenly;
+    /* position: relative; */
+    /* bottom: 10px; */
+    /* z-index: 2; */
 }
-#nav1 ul li{
+#nav1 h3 {
+    display: flex;
+    justify-content: center;
+}
+#nav1 ul {
     background:rgb(255, 220, 220);
     margin:auto;
-    display:inline-flex;
+    display:block;
     width: 400px;
     height: 300px;
     border-radius: 50px;
 }
-#nav1 ul li a {
+#nav1 ul li {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+}
+@media all and (max-width: 650px){
+  img{
+    display: none;
+  }
+#nav ul {
+    list-style: none;
+    position: relative;
+    z-index: 1;
+}
+#nav ul li {
+    margin:40px 0;
+    display:flex;
+    justify-content: center;
+}
+#nav ul li a {
   display: flex;
   align-items: center;
+  font-size: 20px;
+}
+#nav1 h3{
+  display: flex;
+  justify-content: center;
+}
+#nav1 ul{
+    background:rgb(255, 220, 220);
+    margin:auto;
+    display:block;
+    width: 300px;
+    height: 200px;
+    border-radius: 40px;
+}
+#nav1 ul li {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
 }
 </style>

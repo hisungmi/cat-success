@@ -65,31 +65,30 @@ export default {
   name: "SignupForm",
   data() {
     return {
-      // Signup: {
+      
         name: null,
         id: null,
         psword: null,
-      // },
-        idValid:true,
+        idValid: true,
         passwordValid: true,
         passwordCheck:null,
         passwordCheckFlag: true
     };
   },
   // computed: {
-  //   idValid () {
-  //     return /^[A-Za-Z0-9]$/.test(this.id)
+  //   idValid: function() {
+  //     return /^[A-Za-Z0-9]$/.test(this.id);
   //   }
   // },
   methods: {
-    idValid () {
+    idValid() {
       if( /^(?=.*[a-z])(?=.*[0-9])]$/.test(this.id)) {
         this.idValid = true
       } else {
         this.idValid = false
       }
     },
-    passwordValid () {
+    passwordValid() {
       if (/^(?=.*[a-z])(?=.*[0-9]).{4,10}$/.test(this.psword)) {
         this.passwordValid = true
       } else {

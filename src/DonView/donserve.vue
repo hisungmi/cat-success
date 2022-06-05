@@ -2,7 +2,7 @@
   <div class="wrap">
     <h1>돈사환경</h1>
     <div class="sidebar">
-        <ul>
+        <ul class="sidemenu">
           <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
           <li><a href="#"><router-link to="/donchart">그래프</router-link></a></li>
           <li><a href="#"><router-link to="/CCTV">CCTV</router-link></a></li>
@@ -10,6 +10,7 @@
     </div>
     <div class="content">
       <body>
+        
       <table>
         <thead class="tr">
           <tr >
@@ -21,10 +22,10 @@
         </thead>
         <tbody>
           <tr v-for="user in users" :key="user.id" class="tr">
-          <td>{{user.num}}</td>
-          <td>{{user.data}}</td>
-          <td>{{user.Temperature}}</td>
-          <td>{{user.Humidity}}</td>
+          <td>{{ user.num }}</td>
+          <td>{{ user.data }}</td>
+          <td>{{ user.Temperature }}</td>
+          <td>{{ user.Humidity }}</td>
           </tr>
         </tbody>
       </table>
@@ -38,14 +39,18 @@
 
 <script>
 // import Table from '../components/Dth.vue';
+import home from '../views/Home.vue';
 
 export default {
     name: "donserve",
     componrnts: {
         // Table,
+        home
     },
+ 
     data() {
       return {
+        
         users: [
           {num: '1', data: '2022.04.11',Temperature: '26℃', Humidity: '60%' },
           {num: '2', data: '2022.04.12',Temperature: '25℃', Humidity: '62%' },
@@ -56,8 +61,8 @@ export default {
           {num: '7', data: '2022.04.17',Temperature: '26℃', Humidity: '60%' },
         ]
       }
-    }
-    
+    },
+
 }
 </script>
 
