@@ -4,11 +4,18 @@
       <h3>회원가입</h3>
       <div class="container">
         <div>
-          <input type="name" class="name" placeholder="이름" v-model="name" />
+          <input type="name" class="name" 
+          placeholder="이름" 
+          v-model="signup.name" />
         </div>
         <div>
-          <input type="id" maxlength="20" id="id2" placeholder="아이디" v-model="id" @blur="idValid()" />
-          <div v-if="!idValid">
+          <input 
+          type="id" 
+          maxlength="15" 
+          id="id2" placeholder="아이디" 
+          v-model="signup.id" 
+          @blur="idValid" />
+          <div v-if="!idValidFlag">
             유효하지 않은 아이디 입니다.
           </div>
         </div>
@@ -17,11 +24,11 @@
             type="password"
             class="password2"
             placeholder="비밀번호"
-            v-model="psword"
+            v-model="signup.psword"
             maxlength="15"
-            @blur="passwordValid()"
+            @blur="passwordValid"
           />
-          <div v-if="!passwordValid">
+          <div v-if="!passwordValidFlag">
             유효하지 않은 비밀번호입니다.
           </div>
         </div>
@@ -32,7 +39,7 @@
             placeholder="비밀번호 확인"
             v-model="passwordCheck"
             maxlength="10"
-            @blur="passwordCheakValid()"
+            @blur="passwordCheckValid"
           />
           <div v-if="!passwordCheckFlag">
             비밀번호가 동일하지 않습니다.
@@ -65,14 +72,15 @@ export default {
   name: "SignupForm",
   data() {
     return {
-      
+      signup: {
         name: null,
         id: null,
         psword: null,
-        idValid: true,
-        passwordValid: true,
+      },
+        idValidFlag: true,
+        passwordValidFlag: true,
         passwordCheck:null,
-        passwordCheckFlag: true
+        passwordCheckFlag: true,
     };
   },
   // computed: {
@@ -82,27 +90,46 @@ export default {
   // },
   methods: {
     idValid() {
-      if( /^(?=.*[a-z])(?=.*[0-9])]$/.test(this.id)) {
-        this.idValid = true
+      if( /^(?=.*[a-z])(?=.*[0-9]).{4,10}$/.test(this.signup.id)) {
+        this.idValidFlag = true
       } else {
-        this.idValid = false
+        this.idValidFlag = false
       }
     },
     passwordValid() {
-      if (/^(?=.*[a-z])(?=.*[0-9]).{4,10}$/.test(this.psword)) {
-        this.passwordValid = true
+      if (/^(?=.*[a-z])(?=.*[0-9]).{4,10}$/.test(this.signup.psword)) {
+        this.passwordValidFlag = true
       } else {
-        this.passwordValid = false
+        this.passwordValidFlag = false
       }
     },
-    passwordCheck () {
-      if (this.psword == this.passwordCheck) {
+    passwordCheckValid() {
+      if (this.signup.psword == this.passwordCheck) {
         this.passwordCheckFlag = true
       } else {
         this.passwordCheckFlag = false
       }
     },
-
+    SignUp() {
+      if(this.signup.name ==null || this.signup.id == null || this.signup.psword == null || this.passwordCheck == null){
+        alert('필수값 누락')
+        return
+      } if(!this.idValid || !this.passwordValidFlag || !this.passwordCheckValid) {
+        alert('유효성 확인')
+        return
+      }
+      this.$axios.post('/api/login',{
+        id: this.signup.id,
+        psword: this.signup.psword,
+        name: this.signup.name,
+      }.then(res=> {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      }))
+    },
+  },
+};
     // SignUp() {
     //   const data = {
     //     id :'',
@@ -139,8 +166,7 @@ export default {
   //         console.log(error);
   //       });
   //   },
-  },
-};
+
 </script>
 
 <style>

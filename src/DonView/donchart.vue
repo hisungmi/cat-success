@@ -124,51 +124,7 @@ export default {
       }
     }
   },
-  mounted() {
-    //   this.init();
-    this.fncStartMqtt();
-    //  setInterval(() => {
-    //   if (this.x < 100) this.x += 5;
-    // }, 1000);
-  },
-  methods: {
-       fncStartMqtt: function ()
-      {
-        mqttClient = new Paho.MQTT.Client(mqtt_host, Number(mqtt_port), mqtt_clientId);
-    
-        mqttClient.onConnectionLost = this.onConnectionLost;
-        mqttClient.onMessageArrived = this.onMessageArrived;
-    
-        mqttClient.connect({
-            onSuccess : this.onConnect
-            ,onFailure : this.onFailure
-        });
-      },
-      onConnect: function ()
-      {
-        console.log("connet : onConnect..");
-     
-        mqttClient.subscribe(mqtt_topic);   
-      },
-      onFailure: function ()
-      {
-        console.log("connet : onFailure..");
-      },
-      
-      onConnectionLost: function(responseObject)
-      {
-        console.log("onConnectionLost : " + responseObject.errorMessage);
-        this.db = responseObject.errorMessage
-      },
-
-      onMessageArrived: function(message)
-      {
-        console.log("onMessageArrived : " + message.payloadString);
-        this.db = JSON.parse(message.payloadString);
-        this.dbtemp = this.db.temp;
-        this.dbhumid = this.db.humid;
-      },
-    }
+  
 }
 // import Chart from 'chart.js'
 // import planetChartData from '../planet-data.js'
