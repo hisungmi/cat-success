@@ -107,8 +107,9 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+  base: 'http://3.37.9.131:4000/',
   routes,
 });
+
 
 export default router;
