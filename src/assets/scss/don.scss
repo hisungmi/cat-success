@@ -7,10 +7,6 @@
     list-style-type: none;
     
   }
-  .content{
-    display: inline-flex;
-    flex-direction: row;
-  }
   .sidebar ul li{
     list-style: none;
     text-align: center;
@@ -59,7 +55,7 @@
 
   }
   
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 600px) {
       .sidebar {
         width: 100%;
         height: 50px;

@@ -5,7 +5,7 @@
         <ul>
           <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
           <li><a href="#"><router-link to="/donchart">그래프</router-link></a></li>
-          <li><a href="#"><router-link to="/CCTV">CCTV</router-link></a></li>
+        
         </ul>  
     </div>
     <div class="content">

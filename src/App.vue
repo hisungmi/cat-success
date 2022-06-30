@@ -14,6 +14,7 @@ import Menubar from './components/menu.vue';
 import PlanetChart from './components/PlanetChart.vue';
 import LineChart from './components/Line.vue';
 import VGauge from "vgauge";
+import {reactive} from "vue"
 // import Table from './components/Dth.vue';
 
 export default {
@@ -49,11 +50,7 @@ data() {
       }
     };
   },
-  mounted() {
-    setInterval(() => {
-      if (this.x < 100) this.x += 5;
-    }, 1000);
-  }
+  
 };
 
 </script>

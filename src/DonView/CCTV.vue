@@ -1,17 +1,16 @@
 <template>
     <div class="wrap">
     <h1>CCTV</h1>
-    <div class="sidebar">
+    <!-- <div class="sidebar">
         <ul>
           <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
           <li><a href="#"><router-link to="/donchart">그래프</router-link></a></li>
           <li><a href="#"><router-link to="/CCTV">CCTV</router-link></a></li>
         </ul>  
-    </div>
+    </div> -->
     <div class="content">
     <body>
-         <!-- <img src="http://172.20.10.5:8091/?action=stream" width="500px" height="300px">
-         </img> -->
+         <img src="http://172.20.10.5:8091/?action=stream" width="500px" height="300px" alt="CCTV" />
     </body>
     </div>    
     <div class="footer">

@@ -13,7 +13,6 @@
             <ul class="subemenu">
               <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
               <li><a href="#"><router-link to="/donchart">그래프</router-link></a></li>
-              <li><a href="#"><router-link to="/CCTV">CCTV</router-link></a></li>
             </ul>
             </li>
             <li><a href="#">개체관리</a>
@@ -29,22 +28,34 @@
               </li>
             </ul>
             </li>
-            <li><a href="#">생산관리</a>
-            <ul class="subemenu">
+            <li><a href="#"><router-link to="/CCTV">CCTV</router-link></a></li>
+            <!-- <li><a href="#">생산관리</a> -->
+            <!-- <ul class="subemenu">
               <li><a><router-link to="/feed">사료량</router-link></a></li>
               <li><a href="#"><router-link to="/feedchart">그래프</router-link></a></li>
             </ul>
-            </li>
+            </li>-->
             <li>
-              <a><router-link to="/login" id="lg">로그인</router-link></a>
+              <a v-if="isUserLogin" href="javascript:;" @click="logoutUser">로그아웃</a>
+              <a v-else ><router-link to="/login" id="lg" >로그인</router-link>
+              <router-link to="/SignupForm" id="lg" >회원가입</router-link></a>
             </li>
-          </ul>
+          </ul> 
             </div>
         <span class="menu-toggle-btn">
           <span></span>
           <span></span>
           <span></span>
+          <ul class="toggle-menu">
+            <li>돈사환경</li>
+            <li>그래프</li>
+            <li>모돈평가</li>
+            <li>확인사항</li>
+            <li>로그인</li>
+            <li>회원가입</li>
+          </ul>
         </span>
+         
       </header>
     </div>
   </body>
@@ -53,15 +64,22 @@
 <script>
 export default {
   name: "headArea",
-  data: () => ({
-    
-  }),
 
+  computed: {
+    isUserLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
   methods: {
     goRouter: function (v) {
       this.$router.push(v);
     },
+    logoutUser() {
+      this.$store.commit('clearUsername');
+      this.$router.push('/login');
+    }
   },
+  
 };
 </script>
 
@@ -101,7 +119,7 @@ a {
   background: rgba(128, 128, 128, 0.4);
 }
 
-.main-menu, .subemenu {
+.main-menu .subemenu {
   margin:0;
   padding: 0;
   list-style-type: none;
@@ -115,7 +133,7 @@ a {
    flex-direction: column;
  }
 .main-menu > li> a {
-  text-align: center;
+  /* text-align: center; */
   text-decoration: none;
   display: block;
   padding: 20px 0 20px 10px;
@@ -128,18 +146,19 @@ a {
 }
 .subemenu{
      position: fixed;
+     display: flex;
      background: rgb(255, 208, 208);
      opacity: 0;
      visibility: hidden;
  }
  .subemenu > li{
-     padding: 14px;
+     /* padding: 14px; */
      border-bottom: 1px solid rgb(0, 0, 0);
  }
  .subemenu > li > a{
      display: block;
      font-size: 15px;
-     padding: 5px;
+     /* padding: 5px; */
      color:rgb(0, 0, 0);
      text-decoration: none;
     border-bottom: 1px solid rgb(0, 0, 0);
@@ -158,15 +177,23 @@ a {
      opacity: 1;
      visibility: visible;
  }
-
-
-
-
 .header .menu-toggle-btn {
   float: right;
   width: 40px;
   padding-top: 10px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.toggle-menu{
+  display:none;
+  background: rgb(255, 208, 208);
+  opacity: 0;
+  visibility: hidden;
+}
+.menu-toggle-btn >span:hover .toggle-menu {
+  opacity:1;
+  visibility: visible;
 }
 .header .menu-toggle-btn span {
   display: block;
@@ -178,7 +205,7 @@ a {
   margin: 7px 0;
 }
 
-@media all and (min-width: 650px) {
+@media all and (min-width: 600px) {
   .header {
     display: grid;
     grid-template-columns: 30% 70%;
@@ -204,12 +231,12 @@ a {
     margin-bottom: auto;
     width: 100%;
   }
-  .header .main-menu {
+  .header .main-menu  {
     /* !important 없으면 btn 접었을 시 display:none되어 gnb가 표시되지 않음 */
     display: grid !important;
     display: block;
     height: 100%;
-    grid-template-columns: 20% 20% 20% 17% 20% ;
+    grid-template-columns: 20% 20% 20%  30% ;
     position: static;
     width: auto;
     background: none;

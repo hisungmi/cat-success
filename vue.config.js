@@ -4,35 +4,28 @@ const { defineConfig } = require("@vue/cli-service");
 module.exports = {
   chainWebpack: config => {
       config.module.rules.delete('eslint');
+      // config.performance
+      // .maxEntrypointSize(400000)
+      // .maxAssetSize(400000)
   },
+  // publicPath: process.env.NODE_ENV === 'production'
+  //   ? '/hi.sungmi/'
+  //   : '/',
+
+  devServer: {
+    // 프록시 설정
+    proxy: {
+      "/api": {
+        target: "http://3.37.9.131:4000/User2",
+        changeOrigin: true,
+        "secure": false, 
+        "ws": false
+      },
+    },
+  },
+
   transpileDependencies: [
     'vuetify'
   ]
 };
-
-// module.exports = {
-//   chainWebpack: config => {
-//     config.module
-//       .rule('html')
-//       .test(/\.html$/)
-//       .use('html-loader')
-//       .loader('html-loader')
-//   }
-// };
-
-// module.exports = {
-//   // 개발 서버 설정
-//   devServer: {
-//     // 프록시 설정
-//     proxy: {
-//       "/api": {
-//         target: "http://localhost:3000",
-//         changeOrigin: true,
-//       },
-//     },
-//   },
-
-//   transpileDependencies: [
-//     'vuetify'
-//   ]
-// };
+// http://3.37.9.131:3000/

@@ -1,87 +1,101 @@
 
+
 <template>
-  <div class="page">
+  <div class="page" >
+    <form @submit.prevent="submitForm" class="form">
     <div class="box">
-      <!-- <div class="ad-num">
-        <v-text-field v-model="adnum" label="ad-number"></v-text-field>
-      </div> -->
       <div class="id">
         <v-text-field v-model="id" ref="Id" label="UserId"></v-text-field>
       </div>
-      <!-- <div class="id">
-        <v-text-field v-model="id" label="Username"></v-text-field>
-      </div> -->
       <div class="pw">
-        <v-text-field v-model="psword" ref="Psword" label="UserPassword"></v-text-field>
+        <v-text-field type="password" v-model="pw" ref="Pw" label="UserPassword"></v-text-field>
       </div>
-      <!-- <div class="type">
-        <v-text-field v-model="userType" label="ADM"></v-text-field>
-      </div> -->
     </div>
     <div class="caption">
-      <!-- <router-link to="/findidForm"> 아이디찾기</router-link>
-      <router-link to="/findpwForm"> 비밀번호찾기</router-link> -->
       <router-link to="/SignupForm"> 회원가입 </router-link>
     </div>
     <div class="btn">
-      <button type="submit" @click="login()">로그인</button>
-      <button @click.prevent="cancel()" >취소</button>
+      <button type="submit"  > 로그인 </button>
+      <button @click.prevent="cancel()">취소</button>
     </div>
+      </form>
   </div>
-  <!-- <div id="Login">
-  <section>
-    <article id="login_container">
-      <div class="form_area">
-        <form id="login_form" v-on:submit.prevent="loginSubmit">
-        <div class="label">
-        	로그인
-        </div>
-        <div>
-          <input id="user_id" class="login_input" type="text" placeholder="ID" />
-          <input id="user_pwd" class="login_input" type="password" placeholder="Password" />
-        </div>
-        <button class="btn_small" type="button">회원가입</button>
-        <div>
-        	<button id="login_btn" class="btn" type="submit">로그인</button>
-        </div>
-        </form>
-      </div>
-	</article>
-    <article id="register_container">
-      <div class="register_box">
-        <form id="register_form">
-          <div class="label">회원가입</div>
-          <div>
-            <input id="register_id" class="login_input" type="text" placeholder="ID" />
-            <input id="register_pwd" class="login_input" type="password" placeholder="Password" />
-            <select id="user_role">
-              <option value="Admin">Admin</option>
-              <option value="User">User</option>
-            </select>
-            <button class="btn_small" type="button">취소</button>
-          </div>
-          <div>
-          <button class="btn" type="submit">회원가입</button>
-          </div>
-        </form>
-      </div>
-    </article>
-  </section>
-</div> -->
 </template>
-
+<!-- @click="login()" -->
 <script>
+import { loginUser } from '@/api/index.js';
 
-export default {
+export default {  
   name: "loginView",
-  data: () => {
+  data() {
     return {
     id : '', 
-    psword: '', 
-    }
+    pw: '',
+    logMessage: '',
+    };
   },
  
   methods: {
+    async submitForm() {
+      if(this.id == "") {
+        alert("아이디를 입력하세요.");
+        return;
+      } else if(this.pw == "") {
+        alert("비밀번호를 입력하세요.");
+        return;
+      }
+      try{
+        const userData = {
+          id: this.id,
+          pw: this.pw,
+      }
+      
+        console.log('로그인')
+        console.log( userData )
+
+        const { data }  = await loginUser(userData);
+
+        alert("로그인 성공");
+        console.log(data)
+        this.$store.commit('setUsername', data.id);
+        // 메인 페이지 이동
+        this.$router.push('/');
+        this.logMessage = `${data.id} 님 환영합니다.`;
+
+      } catch (error) {
+        
+        console.log(error.response.data);
+        this.logMessage = error.response.data;
+      } finally {
+        this.initForm();
+      }
+    },
+    initForm() {
+      this.id  = '';
+      this.pw  = '';
+    },
+    
+    // login() {
+     
+    //   const data = {id: this.id, pw: this.pw }
+    //   // data = JSON.stringify(data);
+
+    //   console.log("로그인");
+    //   console.log(data);
+
+    //   this.$axios.post("http://3.37.9.131:4000/User2/Login", data)
+    //   .then((res) => {
+    //     alert("로그인 성공")
+    //     console.log(res.data);
+    //     // this.$router.push("/")
+    //   }).catch((err) => {
+    //     alert("로그인 실패");
+    //     console.log(err);
+    //   });
+    // },
+
+
+  
     // login() {
     //   const data = {
     //     id :'asdf',
@@ -100,31 +114,31 @@ export default {
     //         console.log(error);
     //       });
     //   },
-        login() {
-          const data = {
-            id: 'a',
-            psword : '1',
-          }
-          this.$axios
-          .post('', data )
-          .then((res) => {
-            if (this.id == "") {
-            alert('아이디를 입력해주세요.');
-            this.$refs.id.focus();
-            return; 
-          }
-          else if (this.psword == "") {
-            alert('비밀번호를 입력해주세요.');
-            this.$refs.psword.focus();
-            return;
-          }
-          alert("로그인에 성공했습니다. ");
-          console.log(res);
-          })
-          .catch((error) =>{
-            alert("로그인에 실패했습니다.");
-            console.log(error);
-          })
+        // login() {
+        //   const data = {
+        //     id: 'a',
+        //     psword : '1',
+        //   }
+        //   this.$axios
+        //   .post('/login', data )
+        //   .then((res) => {
+        //     if (this.id == "") {
+        //     alert('아이디를 입력해주세요.');
+        //     this.$refs.id.focus();
+        //     return; 
+        //   }
+        //   else if (this.psword == "") {
+        //     alert('비밀번호를 입력해주세요.');
+        //     this.$refs.psword.focus();
+        //     return;
+        //   }
+        //   alert("로그인에 성공했습니다. ");
+        //   console.log(res);
+        //   })
+        //   .catch((error) =>{
+        //     alert("로그인에 실패했습니다.");
+        //     console.log(error);
+        //   })
           
         // this.$http.post('/api/login', {user:this.user}).then((res) => {
         //   if (res.data.success == true) {
@@ -132,52 +146,20 @@ export default {
         //     this.$router.push('/');
         //   } else {alert(res.data.message); }
         // });
-      },
-      cancel() {
-        this.$router.push('/');
-      },
-      mounted() {
-        this.$refs.id.focus();
-      }
-    },
-};
+//       },
+//       cancel() {
+//         this.$router.push('/');
+//       },
+//       mounted() {
+//         this.$refs.id.focus();
+//       }
 
-  //  data() {
-  //   return {
-  //     user_id: "",
-  //     user_pwd: "",
-  //     isLogin: true,
-  //     isRegister: false,
-  //     register_id: "",
-  //     register_pwd: "",
-  //     register_role: "Admin"
-  //   };
-  // },
-  // methods: {
-  //   loginSubmit: function() {
-  //     console.log("로그인");
-  //     this.$router.push("/");
-  //   },
-  //   login: function() {
-  //     this.isLogin = true;
-  //     this.isRegister = false;
-  //   },
-  //   register: function() {
-  //     this.isLogin = false;
-  //     this.isRegister = true;
-  //   },
-  //   registerSubmit: function() {
-  //     console.log("회원가입 완료");
-  //     this.login();
-  //   },
-  //   registBtn: function() {
-  //     console.log("회원가입");
-  //     this.register();
-  //   },
-  //   cancelBtn: function() {
-  //     this.login();
-  //   }
-  // }
+    },
+    
+
+
+
+};
 
 </script>
 

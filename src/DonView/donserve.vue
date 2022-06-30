@@ -5,7 +5,6 @@
         <ul class="sidemenu">
           <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
           <li><a href="#"><router-link to="/donchart">그래프</router-link></a></li>
-          <li><a href="#"><router-link to="/CCTV">CCTV</router-link></a></li>
         </ul>  
     </div>
     <div class="content">
@@ -21,11 +20,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id" class="tr">
-          <td>{{ user.num }}</td>
-          <td>{{ user.data }}</td>
-          <td>{{ user.Temperature }}</td>
-          <td>{{ user.Humidity }}</td>
+          <tr class="tr">
+          <td>{{ db }}</td>
+          <td>{{ db }}</td>
+          <td>{{ db.temp }}</td>
+          <td>{{ db.humid }}</td>
           </tr>
         </tbody>
       </table>
@@ -37,31 +36,83 @@
 </div>
 </template>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 <script>
 // import Table from '../components/Dth.vue';
 import home from '../views/Home.vue';
+import mqttws31 from '@/plugins/mqttws31'
+import mqttws31min from '@/plugins/mqttws31-min'
+
+var mqttClient= null;
+var mqtt_host = "broker.hivemq.com";
+var mqtt_port = "8000";
+var mqtt_clientId = "clientID-" + parseInt(Math.random() * 100);        // 랜덤 클라이언트 ID 
+var mqtt_topic = "SMT_IT/CCIT/SENSOR/TEMP";
 
 export default {
     name: "donserve",
     componrnts: {
         // Table,
-        home
+        home, mqttws31, mqttws31min
     },
  
     data() {
       return {
-        
-        users: [
-          {num: '1', data: '2022.04.11',Temperature: '26℃', Humidity: '60%' },
-          {num: '2', data: '2022.04.12',Temperature: '25℃', Humidity: '62%' },
-          {num: '3', data: '2022.04.13',Temperature: '26℃', Humidity: '61%' },
-          {num: '4', data: '2022.04.14',Temperature: '24℃', Humidity: '60%' },
-          {num: '5', data: '2022.04.15',Temperature: '25℃', Humidity: '62%' },
-          {num: '6', data: '2022.04.16',Temperature: '26℃', Humidity: '62%' },
-          {num: '7', data: '2022.04.17',Temperature: '26℃', Humidity: '60%' },
-        ]
+        db:[],
+        dbtemp:null,
+        dbhumid:null,
       }
     },
+    mounted() {
+    //   this.init();
+    this.fncStartMqtt();
+    //  setInterval(() => {
+    //   if (this.x < 100) this.x += 5;
+    // }, 1000);
+  },
+  methods: {
+       fncStartMqtt: function ()
+      {
+        mqttClient = new Paho.MQTT.Client(mqtt_host, Number(mqtt_port), mqtt_clientId);
+    
+        mqttClient.onConnectionLost = this.onConnectionLost;
+        mqttClient.onMessageArrived = this.onMessageArrived;
+    
+        mqttClient.connect({
+            onSuccess : this.onConnect
+            ,onFailure : this.onFailure
+        });
+      },
+      onConnect: function ()
+      {
+        console.log("connet : onConnect..");
+     
+        mqttClient.subscribe(mqtt_topic);   
+      },
+      onFailure: function ()
+      {
+        console.log("connet : onFailure..");
+      },
+      
+      onConnectionLost: function(responseObject)
+      {
+        console.log("onConnectionLost : " + responseObject.errorMessage);
+        this.db = responseObject.errorMessage
+      },
+
+      onMessageArrived: function(message)
+      {
+        console.log("onMessageArrived : " + message.payloadString);
+        this.db = JSON.parse(message.payloadString);
+        this.dbtemp = this.db.temp;
+        this.dbhumid = this.db.humid;
+      },
+
+    //   mapActions({
+    //       init: 'dbInit'
+    //   });     
+  },
 
 }
 </script>

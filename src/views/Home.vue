@@ -6,29 +6,27 @@
           <a><img style="cursor: pointer" id="img" src="../assets/home1.png"/></a>
         </h1>
     </header>
+    <!-- <span class="username">{{ $store.state.username }}</span> -->
     <!-- <donserve :dbchild="db"></donserve> -->
     <nav id="nav">
         <ul>
             <li><a><v-gauge
             unit="℃"
             :width="width"
-            
-            
             :min="0"  
             :max="100"  
             :value="dbtemp" 
             :options="options" /></a>
             </li>
             <li><a><v-gauge 
-            unit="%" 
-            
+            unit="%"       
             :width="width" 
             :min="0" 
             :max="100"  
-            :value="x" 
+            :value="dbhumid" 
             :options="options" /></a>
             </li>
-            <li><a>가스량</a></li>
+            <li><a>{{ dbgas }}</a></li>
         </ul>       
     </nav>
     <nav id="nav1">
@@ -74,7 +72,8 @@ var mqttClient= null;
 var mqtt_host = "broker.hivemq.com";
 var mqtt_port = "8000";
 var mqtt_clientId = "clientID-" + parseInt(Math.random() * 100);        // 랜덤 클라이언트 ID 
-var mqtt_topic = "test/hello";
+var mqtt_topic = "SMT_IT/CCIT/SENSOR/TEMP";
+// var mqtt_topic = "SMT_IT/CCIT/SENSOR/GAS";
 
 // import{ mapActions, mapState } from 'vuex'
 export default {
@@ -85,7 +84,8 @@ export default {
         db:[],
         dbtemp:null,
         dbhumid:null, 
-        x:30, 
+        dbgas:null,
+        
       width: "300px",
       options: {
         pointer: {
@@ -154,6 +154,7 @@ export default {
         this.db = JSON.parse(message.payloadString);
         this.dbtemp = this.db.temp;
         this.dbhumid = this.db.humid;
+        this.dbgas = this.db.gas;
       },
 
     //   mapActions({
@@ -170,7 +171,7 @@ body{
 img{
   width:100%;
 }
-@media all and (min-width: 650px){
+@media all and (min-width: 600px){
 #nav ul {
     margin:0;
     padding:0;
@@ -178,7 +179,7 @@ img{
     display: flex;
     justify-content: center;
     position: relative;
-    bottom: 100px;
+    /* bottom: 100px; */
     z-index: 1;
 }
 
@@ -203,7 +204,7 @@ img{
   justify-content: center;
 }
 #nav1 {
-    margin:0;
+    margin:90px;
     padding:0;
     list-style: none;
     display: flex;
@@ -231,7 +232,7 @@ img{
 }
 
 }
-@media all and (max-width: 650px){
+@media all and (max-width: 600px){
   img{
     display: none;
   }
@@ -250,6 +251,7 @@ img{
   align-items: center;
   font-size: 20px;
 }
+
 #nav1 h3{
   display: flex;
   justify-content: center;
@@ -258,6 +260,7 @@ img{
     background:rgb(255, 220, 220);
     margin:auto;
     display:block;
+
     width: 300px;
     height: 200px;
     border-radius: 40px;
