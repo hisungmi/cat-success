@@ -14,7 +14,8 @@
           type="id" 
           maxlength="15" 
           id="id2" placeholder="아이디" 
-          v-model="id" 
+          v-model="id"
+          ref="cursor"
           @blur="idValid" />
           <div v-if="!idValidFlag">
             유효하지 않은 아이디 입니다.
@@ -28,6 +29,7 @@
             placeholder="비밀번호"
             v-model="pw"
             maxlength="15"
+            ref="cursor2"
             @blur="passwordValid"
           />
           <div v-if="!passwordValidFlag">
@@ -75,11 +77,8 @@ export default {
   name: "SignupForm",
   data() {
     return {
-      // signup: {
-        // name: null,
         id: '',
         pw: '',
-      // },
         availableid: true,
         idValidFlag: true,
         passwordValidFlag: true,
@@ -89,12 +88,18 @@ export default {
         
     };
   },
+  // mounted() {
+  //   this.startCursor();
+  // },
   methods: {
+    // startCursor() {
+    //   this.$refs.cursor.focus();
+    // },
     idValid() {
       if( /^(?=.*[a-z])(?=.*[0-9]).{4,10}$/.test(this.id)) {
         this.idValidFlag = true
       } else {
-        this.idValidFlag = false
+        this.idValidFlag = false;
       }
     },
     passwordValid() {
@@ -111,28 +116,15 @@ export default {
     //     this.passwordCheckFlag = false
     //   }
     // },
-    async idValid() {
-      const response = await registerUser(this.id);
-      if (!response.data.id) {
-        this.availableid = false;
-      } else {
-        this.availableid = true;
-      }
-    },
+    // async idValid() {
+    //   const response = await registerUser(this.id);
+    //   if (!response.data.id) {
+    //     this.availableid = false;
+    //   } else {
+    //     this.availableid = true;
+    //   }
+    // },
     async SignUp() {
-      if (this.id == "") {
-          alert("아이디를 입력하세요.");
-          return;
-        } else if (this.pw == "" ) {
-          alert("비밀번호를 입력하세요.");
-          return;
-        } else if (this.availableid == false){
-          alert("다른 아이디를 입력해주세요.");
-          return;
-        } else if (this.passwordValidFlag == false) {
-          alert("비밀번호를 다시 입력해주세요.");
-          return;
-        }
         
 
     try{
@@ -142,14 +134,40 @@ export default {
           // name:this.signup.name,
           // passwordCheck : this.passwordCheck,
         }
-        const { data } = await registerUser(this.userData);
+        const { data } = await registerUser(userData);
+        
+         if (this.id === "") {
+          alert("아이디를 입력하세요.");
+          
+        } else if (this.pw === "" ) {
+          alert("비밀번호를 입력하세요.");
+        } else if (this.availableid === false){
+          alert("다른 아이디를 입력해주세요.");
+          return;
+        } else if (this.passwordValidFlag === false) {
+          alert("비밀번호를 다시 입력해주세요.");
+          return;
+        } else if (this.availableid === false && this.passwordValidFlag === false) {
+          alert("아이디와 비밀번호를 다시 입력해주세요")
+          return;
+        }
+
           console.log("회원가입");
           console.log(userData)
           console.log(data)
+
+        if( data.message === '회원가입 실패'  ) {
+          alert("회원가입 실패.");
+          return ;
+        } else if(data.message === '회원가입 성공'){
+          alert("회원가입 성공.");
           this.$router.push('/login');
-          // this.logMessage = `${this.data.id}님이 가입되었습니다.`;
+          return;
+        }
+          // this.logMessage = `${this.userData.id}님이 가입되었습니다.`;
         } catch (error){
-          console.log("Error! : ", err);
+
+          console.log("Error!");
 
         } finally {
           this.initForm();
