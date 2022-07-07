@@ -13,7 +13,7 @@
           </ol>
         </ul>  
     </div>
-    <div class="content">
+    <div >
         <body>
         <h4>모돈의 급성유방염</h4>  
         <div>○ 급성 유방염 이환시 체온은 41.5도씨 이상의 체온</div>    

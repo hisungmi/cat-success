@@ -16,7 +16,7 @@ module.exports = {
     // 프록시 설정
     proxy: {
       "/api": {
-        target: "http://3.37.9.131:4000/User2",
+        target: "http://3.37.9.131:4000/",
         changeOrigin: true,
         "secure": false, 
         "ws": false

@@ -7,7 +7,7 @@
           <li><a href="#"><router-link to="/donchart">그래프</router-link></a></li>
         </ul>  
     </div>
-    <div class="content">
+    <div>
       <body>
         
       <table>
@@ -21,8 +21,8 @@
         </thead>
         <tbody>
           <tr class="tr">
-          <td>{{ db }}</td>
-          <td>{{ db }}</td>
+          <td> </td>
+          <td>{{ new Date() | moment('YYYY-MM-DD') }}</td>
           <td>{{ db.temp }}</td>
           <td>{{ db.humid }}</td>
           </tr>

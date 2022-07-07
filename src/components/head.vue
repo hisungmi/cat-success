@@ -35,14 +35,17 @@
               <li><a href="#"><router-link to="/feedchart">그래프</router-link></a></li>
             </ul>
             </li>-->
-            <li>
-              <a v-if="isUserLogin" href="javascript:;" @click="logoutUser">로그아웃</a>
-              <a v-else ><router-link to="/login" id="lg" >로그인</router-link>
-              <router-link to="/SignupForm" id="lg" >회원가입</router-link></a>
-            </li>
-          </ul> 
+            <div v-if="isUserLogin" class="sssube">
+              <li ><router-link to="/Mypage" id="lg" > 마이페이지 </router-link></li>
+              <li><a href="javascript:;" @click="logoutUser">로그아웃</a></li>
             </div>
-        <span class="menu-toggle-btn">
+            <div v-else class="sssube">
+              <li  ><router-link to="/login" id="lg" >로그인</router-link></li>
+              <li ><router-link to="/SignupForm" id="lg" >회원가입</router-link></li>
+            </div>
+          </ul>
+        </div>
+        <!-- <span class="menu-toggle-btn">
           <span></span>
           <span></span>
           <span></span>
@@ -54,19 +57,34 @@
             <li>로그인</li>
             <li>회원가입</li>
           </ul>
-        </span>
+        </span> -->
+         <slider class="menu-toggle-btn" 
+         :width="200" 
+         format="push" 
+         direction="right" 
+         :opacity="0.15" 
+         :customStyles="{'navMenu': {'background-color': 'black'}, 'navIcon': {'color': '#595959'}}"
+         :links="[{'id': 1, 'text': '돈사환경', 'url': '/donserve'}, {'id': 2, 'text': '개체관리', 'url': '/momcheak'},{'id': 3, 'text': '로그인', 'url': '/login'}]">
+         </slider>
          
       </header>
     </div>
   </body>
 </template>
 
+<script src="https://unpkg.com/@jeremyhamm/vue-slider"></script>
 <script>
+import Slider from '@jeremyhamm/vue-slider'
+
 export default {
   name: "headArea",
+  components: {
+    'slider': Slider
+  },
 
   computed: {
     isUserLogin() {
+      
       return this.$store.getters.isLogin;
     },
   },
@@ -77,8 +95,9 @@ export default {
     logoutUser() {
       this.$store.commit('clearUsername');
       this.$router.push('/login');
-    }
-  },
+    },
+  }
+  
   
 };
 </script>
@@ -95,7 +114,9 @@ a {
   padding: 18px 2%;
   height: 50px;
 }
-
+.navMenu{
+  background-color:#ceb6b6;
+}
 .header .logo {
   float: left;
   padding: 0;
@@ -118,7 +139,6 @@ a {
   width: 100%;
   background: rgba(128, 128, 128, 0.4);
 }
-
 .main-menu .subemenu {
   margin:0;
   padding: 0;
@@ -132,6 +152,13 @@ a {
    display: flex;
    flex-direction: column;
  }
+ .sssube{
+  display : flex;
+  justify-content : space-evenly;
+  align-items : center;
+
+ }
+
 .main-menu > li> a {
   /* text-align: center; */
   text-decoration: none;
@@ -170,7 +197,7 @@ a {
    display: block;
    font-size: 10px;
  }
-  .subemenu > li > a:hover{
+ .subemenu > li > a:hover{
      background-color: #ceb6b6;    
   }
  .main-menu >li:hover .subemenu {
@@ -184,6 +211,7 @@ a {
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  
 }
 .toggle-menu{
   display:none;
@@ -191,10 +219,7 @@ a {
   opacity: 0;
   visibility: hidden;
 }
-.menu-toggle-btn >span:hover .toggle-menu {
-  opacity:1;
-  visibility: visible;
-}
+
 .header .menu-toggle-btn span {
   display: block;
   width: 100%;
@@ -231,16 +256,17 @@ a {
     margin-bottom: auto;
     width: 100%;
   }
-  .header .main-menu  {
+  .header .main-menu   {
     /* !important 없으면 btn 접었을 시 display:none되어 gnb가 표시되지 않음 */
     display: grid !important;
     display: block;
     height: 100%;
-    grid-template-columns: 20% 20% 20%  30% ;
+    grid-template-columns: 20% 20% 20% 40% ;
     position: static;
     width: auto;
     background: none;
   }
+
   .header .main-menu li {
     float: left;
     margin-top: auto;
@@ -257,6 +283,14 @@ a {
   .header .menu-toggle-btn {
     display: none;
   }
+  .menu-toggle-btn span:hover .toggle-menu {
+  opacity:1;
+  visibility: visible;
+}
+.toggle-menu > li:hover {
+  background-color: #ceb6b6;
+
+}
 }
 
 @media all and (min-width: 1132px) {

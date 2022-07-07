@@ -13,7 +13,7 @@
           </ol>
         </ul>  
     </div>
-    <div class="content">
+    <div >
         <body>
         <h4>회음부 평가 점수</h4>  
         <a>○ 1점-회음부나 외음부의 돌출이나 부종이 없음</a><br>    

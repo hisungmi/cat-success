@@ -103,6 +103,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../cheak/four.vue"),
   },
+  {
+    path: "/Mypage",
+    name: "Mypage",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Mypage.vue"),
+  }
 ];
 
 const router = new VueRouter({

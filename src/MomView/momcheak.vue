@@ -7,7 +7,7 @@
           <li><a href="#"><router-link to="/one">확인사항</router-link></a></li>
         </ul>  
     </div>
-    <div class="content">
+    <div >
     <body>
       <table>
         <thead class="tr">

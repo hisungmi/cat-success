@@ -13,7 +13,7 @@
           </ol>
         </ul>  
     </div>
-    <div class="content">
+    <div>
     </div>    
     <div class="footer">
         성미 010-7777-8888

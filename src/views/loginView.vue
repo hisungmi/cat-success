@@ -1,8 +1,13 @@
 
 
 <template>
+  
   <div class="page" >
-    <form @submit.prevent="submitForm" class="form">
+    <div v-if="isUserLogin" >
+      <p>{{ logMessage }}</p>
+      <button @click="goRouter('/')">홈으로</button>
+    </div>
+    <form v-else @submit.prevent="submitForm" class="form">
     <div class="box">
       <div class="id">
         <v-text-field v-model="id" ref="Id" label="UserId"></v-text-field>
@@ -34,13 +39,17 @@ export default {
     logMessage: '',
     };
   },
- 
+ computed: {
+    isUserLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
   methods: {
     async submitForm() {
-      if(this.id == "") {
+      if(this.id === "") {
         alert("아이디를 입력하세요.");
         return;
-      } else if(this.pw == "") {
+      } else if(this.pw === "") {
         alert("비밀번호를 입력하세요.");
         return;
       }
@@ -49,23 +58,26 @@ export default {
           id: this.id,
           pw: this.pw,
       }
-      
         console.log('로그인')
         console.log( userData )
 
         const { data }  = await loginUser(userData);
 
-        alert("로그인 성공");
         console.log(data)
-        this.$store.commit('setUsername', data.id);
+                
+      if(data.message === '로그인 실패'  ) {
+        alert("로그인 실패.");
+        return;
+      } else if(data.message === '로그인 성공'){
+        alert("로그인 성공.");
+        // this.$router.push('/');
         // 메인 페이지 이동
-        this.$router.push('/');
-        this.logMessage = `${data.id} 님 환영합니다.`;
-
+        this.$store.commit('setUsername', data.id);
+        this.logMessage = `관리자 ${userData.id} 님 환영합니다.`;
+        return;
+      }
       } catch (error) {
-        
-        console.log(error.response.data);
-        this.logMessage = error.response.data;
+        console.log("Error!");
       } finally {
         this.initForm();
       }
@@ -74,6 +86,11 @@ export default {
       this.id  = '';
       this.pw  = '';
     },
+
+    goRouter: function (v) {
+      this.$router.push(v);
+    },
+  
     
     // login() {
      
@@ -93,72 +110,7 @@ export default {
     //     console.log(err);
     //   });
     // },
-
-
-  
-    // login() {
-    //   const data = {
-    //     id :'asdf',
-    //     psword : 'asdf',
-    //     }
-    //       this.$axios
-    //       .post('http://172.31.3.229:3000/api/login', data )
-    //       .then((res) => {
-            
-    //         alert("로그인에 성공했습니다.");
-    //         console.log(res);
-    //         // this.$router.replace('hello');
-    //       })
-    //       .catch((error) => {
-    //         alert("로그인에 실패했습니다. ");
-    //         console.log(error);
-    //       });
-    //   },
-        // login() {
-        //   const data = {
-        //     id: 'a',
-        //     psword : '1',
-        //   }
-        //   this.$axios
-        //   .post('/login', data )
-        //   .then((res) => {
-        //     if (this.id == "") {
-        //     alert('아이디를 입력해주세요.');
-        //     this.$refs.id.focus();
-        //     return; 
-        //   }
-        //   else if (this.psword == "") {
-        //     alert('비밀번호를 입력해주세요.');
-        //     this.$refs.psword.focus();
-        //     return;
-        //   }
-        //   alert("로그인에 성공했습니다. ");
-        //   console.log(res);
-        //   })
-        //   .catch((error) =>{
-        //     alert("로그인에 실패했습니다.");
-        //     console.log(error);
-        //   })
-          
-        // this.$http.post('/api/login', {user:this.user}).then((res) => {
-        //   if (res.data.success == true) {
-        //     alert(res.data.message);
-        //     this.$router.push('/');
-        //   } else {alert(res.data.message); }
-        // });
-//       },
-//       cancel() {
-//         this.$router.push('/');
-//       },
-//       mounted() {
-//         this.$refs.id.focus();
-//       }
-
-    },
-    
-
-
-
+  }
 };
 
 </script>

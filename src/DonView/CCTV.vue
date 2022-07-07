@@ -8,7 +8,7 @@
           <li><a href="#"><router-link to="/CCTV">CCTV</router-link></a></li>
         </ul>  
     </div> -->
-    <div class="content">
+    <div>
     <body>
          <img src="http://172.20.10.5:8091/?action=stream" width="500px" height="300px" alt="CCTV" />
     </body>

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@chrisheanan/vue-gauge": "^1.2.2",
+    "@jeremyhamm/vue-slider": "^0.2.0",
     "axios": "^0.26.1",
     "body-parser": "^1.20.0",
     "chart.js": "^3.7.1",
@@ -24,6 +25,7 @@
     "vue-chartjs": "^4.1.0",
     "vue-echarts": "^6.0.3",
     "vue-gauge": "^1.0.3",
+    "vue-moment": "^4.1.0",
     "vue-mqtt": "^2.0.3",
     "vue-router": "^3.5.1",
     "vuetify": "^2.6.4",

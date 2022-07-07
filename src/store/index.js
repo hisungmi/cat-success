@@ -16,6 +16,7 @@ export default new Vuex.Store({
     isLogin(state) {
       return state.id != '';
     },
+    
   },
   mutations: {
     setUsername(state, id) {
