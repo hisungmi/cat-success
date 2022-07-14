@@ -55,7 +55,16 @@ export default {
           {num: '7', data: '2022.04.17',grade: '정상', Hip: '정상', shit: '정상', Breast:'정상'},
         ]
       }
+    },
+    mounted() {
+    let isLogin = this.$store.getters.isLogin;
+    console.log(isLogin);
+
+    if (!isLogin) { 
+        alert('로그인 후 이용하세요.');
+        this.$router.push('/login');
     }
+  },
 
 }
 </script>

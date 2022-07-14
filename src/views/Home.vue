@@ -3,11 +3,14 @@
 <div id="wrap">
     <header id="header">
         <h1 class="main">
-          <a><img style="cursor: pointer" id="img" src="../assets/home1.png"/></a>
+          <img style="cursor: pointer" id="img" src="../assets/home1.png"/>
         </h1>
     </header>
+    <img class="main2" src="../assets/pig.png" />
     <!-- <span class="username">{{ $store.state.username }}</span> -->
     <!-- <donserve :dbchild="db"></donserve> -->
+
+    <div v-if="isUserLogin">
     <nav id="nav">
         <ul>
             <li><a><v-gauge
@@ -27,7 +30,7 @@
             :options="options" /></a>
             </li>
             <li><a>{{ dbgas }}</a></li>
-        </ul>       
+       </ul>       
     </nav>
     <nav id="nav1">
         <div>
@@ -52,7 +55,7 @@
           </ul>
         </div>       
     </nav>
-
+  </div>
 </div>
 </body>
 </template>
@@ -104,12 +107,12 @@ export default {
 
       };
   },
-  // computed: {
-  //   ...mapState({
-  //     db: state => state.db
+  computed: {
+    isUserLogin() {
       
-  //   })
-  // },
+      return this.$store.getters.isLogin;
+    },
+  },
 
   mounted() {
     //   this.init();
@@ -167,11 +170,18 @@ export default {
 <style scoped>
 body{
     background-color: rgb(253, 201, 201);
+    height: 713px;
 }
+
 img{
   width:100%;
 }
+
 @media all and (min-width: 600px){
+.main2{
+  display: none;
+}
+
 #nav ul {
     margin:0;
     padding:0;
@@ -233,8 +243,13 @@ img{
 
 }
 @media all and (max-width: 600px){
-  img{
+  
+  .main{
     display: none;
+  }
+  .main2{
+    display: block;
+    margin: 10px auto;
   }
 #nav ul {
     list-style: none;

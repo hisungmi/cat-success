@@ -8,6 +8,9 @@
     <!-- <Table /> -->
   </div>
 </template>
+
+<script src="vue.js"></script>
+<script src="vue-nav-drawer.min.js"></script>
 <script>
 import headArea from './components/head.vue';
 import Menubar from './components/menu.vue';

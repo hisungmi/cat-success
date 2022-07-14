@@ -1,11 +1,10 @@
 <template>
-  <body>
+ 
     <div id="wrap">
       <header class="header fixed">
         <h1 class="logo">
-          <a @click="goRouter('/')"
-            ><img style="cursor: pointer" id="img" src="../assets/logo1.png"
-          /></a>
+          <a @click="goRouter('/')">
+          <img style="cursor: pointer" id="img" src="../assets/logo1.png"/></a>
         </h1>
         <div class="bar">
           <ul class="main-menu">
@@ -18,7 +17,7 @@
             <li><a href="#">개체관리</a>
             <ul class="subemenu">
               <li><a><router-link to="/momcheak">모돈평가</router-link></a></li>
-              <li><a><router-link to="/one">확인사항</router-link></a>
+              <li><a><router-link to="">확인사항</router-link></a>
                 <ol class="ssubemenu">
                   <li><a><router-link to="/one">모돈 체평점</router-link></a></li>
                   <li><a><router-link to="/two">모돈 회음부</router-link></a></li>
@@ -44,7 +43,12 @@
               <li ><router-link to="/SignupForm" id="lg" >회원가입</router-link></li>
             </div>
           </ul>
+          
         </div>
+        <nav-drawer-handle></nav-drawer-handle>
+        <nav-drawer>
+          MENU LIST
+        </nav-drawer>
         <!-- <span class="menu-toggle-btn">
           <span></span>
           <span></span>
@@ -58,33 +62,62 @@
             <li>회원가입</li>
           </ul>
         </span> -->
-         <slider class="menu-toggle-btn" 
+         <!-- <slider v-if="isUserLogin" class="menu-toggle-btn" 
          :width="200" 
-         format="push" 
+         type = "submit"
          direction="right" 
          :opacity="0.15" 
          :customStyles="{'navMenu': {'background-color': 'black'}, 'navIcon': {'color': '#595959'}}"
-         :links="[{'id': 1, 'text': '돈사환경', 'url': '/donserve'}, {'id': 2, 'text': '개체관리', 'url': '/momcheak'},{'id': 3, 'text': '로그인', 'url': '/login'}]">
+         :links="[{'id': 1, 'text': '돈사환경', 'url': '/donserve'}, {'id': 2, 'text': '개체관리', 'url': '/momcheak'},{'id': 3, 'text': '마이페이지', 'url': '/Mypage'},{'id': 4, 'text': '로그아웃', 'url': '/login'}]">
          </slider>
-         
+         <slider v-else class="menu-toggle-btn" 
+         :width="200" 
+         type = "submit"
+         direction="right" 
+         :opacity="0.15" 
+         :customStyles="{'navMenu': {'background-color': 'black'}, 'navIcon': {'color': '#595959'}}"
+         :links="[{'id': 1, 'text': '돈사환경', 'url': '/donserve'}, {'id': 2, 'text': '개체관리', 'url': '/momcheak'},{'id': 3, 'text': 'CCTV', 'url': '/CCTV'},{'id': 4, 'text': '로그인', 'url': '/login'}]">
+         </slider> -->
+
+
+        <!-- <div class="navMBtn"><a href="#"><span></span><span></span><span></span></a></div>
+        <nav id="navM">
+          <ul class="toggle-menu">
+            <li>돈사환경</li>
+            <li>그래프</li>
+            <li>모돈평가</li>
+            <li>확인사항</li>
+            <li>로그인</li>
+            <li>회원가입</li>
+          </ul>
+        </nav> -->
       </header>
     </div>
-  </body>
 </template>
 
+<script src="vue.js"></script>
+<script src="vue-nav-drawer.min.js"></script>
 <script src="https://unpkg.com/@jeremyhamm/vue-slider"></script>
 <script>
 import Slider from '@jeremyhamm/vue-slider'
+import { NavDrawer, NavDrawerHandle } from '@inotom/vue-nav-drawer';
 
 export default {
   name: "headArea",
+  data() {
+    return{
+      showSlideMenu: false,
+    }
+  },
   components: {
-    'slider': Slider
+    'slider': Slider,
+    NavDrawer,
+    NavDrawerHandle
+    
   },
 
   computed: {
     isUserLogin() {
-      
       return this.$store.getters.isLogin;
     },
   },
@@ -96,6 +129,12 @@ export default {
       this.$store.commit('clearUsername');
       this.$router.push('/login');
     },
+    openSlideMenu(){
+      this.showSlideMenu = true;
+    },
+    closeSlideMenu(){
+      this.showSlideMenu = false;
+    }
   }
   
   
@@ -110,10 +149,10 @@ a {
   display: block;
 }
 .header {
-  position: relative;
-  padding: 18px 2%;
-  height: 50px;
-}
+    position: relative;
+    padding: 25px 2%;
+    height: 123px;
+  }
 .navMenu{
   background-color:#ceb6b6;
 }
@@ -289,14 +328,26 @@ a {
 }
 .toggle-menu > li:hover {
   background-color: #ceb6b6;
+}
 
 }
+
+@media all and (max-width: 600px) {
+#navM {
+    display: none;
+    position: fixed;right: 0;width: 70%;height: 100%;
+    background: #fff;box-shadow: 0 20px 15px rgba(0,0,0,.15);z-index: 5;
+}
+.navMBtn {position: fixed;z-index: 6;right: 0;top: 0;}
+.navMBtn>a{display: block; padding: 5px;} 
+.navMBtn>a>span{display: block;width: 35px;height: 2.5px;background: #333;margin: 8px}
 }
 
 @media all and (min-width: 1132px) {
   .header {
     grid-template-columns: 20% 80%;
   }
+  
   .header .logo {
     padding: 10px 20px;
     padding-left: 40px;

@@ -4,11 +4,11 @@
       <h3>회원가입</h3>
       <div class="container">
         <form v-on:submit.prevent="SignUp">
-        <!-- <div>
+        <div>
           <input type="name" class="name" 
           placeholder="이름" 
-          v-model="signup.name" />
-        </div> -->
+          v-model="name" />
+        </div>
         <div>
           <input 
           type="id" 
@@ -16,10 +16,12 @@
           id="id2" placeholder="아이디" 
           v-model="id"
           ref="cursor"
+          @focus="checkFlag = false"
           @blur="idValid" />
-          <div v-if="!idValidFlag">
+          <span v-if="!idValidFlag">
             유효하지 않은 아이디 입니다.
-          </div>
+          </span>
+          <!-- <span class="error" v-if="checkFlag && !id">아이디를 입력하세요</span> -->
           <span v-if="!availableid">이미 사용중인 아이디입니다.</span>
         </div>
         <div>
@@ -30,11 +32,13 @@
             v-model="pw"
             maxlength="15"
             ref="cursor2"
+            @focus="checkFlag = false"
             @blur="passwordValid"
           />
-          <div v-if="!passwordValidFlag">
+          <span v-if="!passwordValidFlag">
             유효하지 않은 비밀번호입니다.
-          </div>
+          </span>
+          <!-- <span class="error" v-if="checkFlag && !pw">비밀번호를 입력하세요</span> -->
         </div>
         <!-- <div>
           <input
@@ -61,7 +65,7 @@
         </div> -->
         <div class="btn">
           <button type="submit">가입하기</button>
-          <span
+          <span class="caption1"
             >또는 <router-link to="/login">로그인</router-link>으로 돌아가기</span>
         </div>
         </form>
@@ -71,7 +75,8 @@
 </template>
 <!-- @click="SignUp()" -->
 <script>
-import { registerUser } from '@/api/index.js'
+import { registerUser } from '@/api/index.js';
+import { loginUser } from '@/api/index.js';
 
 export default {
   name: "SignupForm",
@@ -79,13 +84,13 @@ export default {
     return {
         id: '',
         pw: '',
+        name: '',
         availableid: true,
         idValidFlag: true,
         passwordValidFlag: true,
         // passwordCheck:null,
         passwordCheckFlag: true,
-        
-        
+        checkFlag: false,
     };
   },
   // mounted() {
@@ -95,13 +100,23 @@ export default {
     // startCursor() {
     //   this.$refs.cursor.focus();
     // },
-    idValid() {
+    async idValid() {
       if( /^(?=.*[a-z])(?=.*[0-9]).{4,10}$/.test(this.id)) {
         this.idValidFlag = true
       } else {
-        this.idValidFlag = false;
+        this.idValidFlag = false
+        return;
       }
+      // const response = await loginUser(this.id);
+
+      //     if ( this.id == response.userData.id) {
+      //       this.availableid = false;
+
+      //     } else {
+      //       this.availableid = true;
+      //     }
     },
+
     passwordValid() {
       if (/^(?=.*[a-z])(?=.*[0-9]).{4,10}$/.test(this.pw)) {
         this.passwordValidFlag = true
@@ -109,6 +124,7 @@ export default {
         this.passwordValidFlag = false
       }
     },
+
     // passwordCheckValid() {
     //   if (this.signup.pw == this.passwordCheck) {
     //     this.passwordCheckFlag = true
@@ -117,46 +133,69 @@ export default {
     //   }
     // },
     // async idValid() {
-    //   const response = await registerUser(this.id);
-    //   if (!response.data.id) {
-    //     this.availableid = false;
-    //   } else {
-    //     this.availableid = true;
-    //   }
     // },
-    async SignUp() {
-        
 
+    isEmpty(data) {
+      if (data ==="" || data === null) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    sign() {
+      this.checkFlag = true;
+          if(!this.isEmpty(this.id) && !this.isEmpty(this.pw)){
+          }
+    },
+
+    async SignUp() {
     try{
 	    const userData = {
           id : this.id,
           pw : this.pw,
+          name : this.name,
           // name:this.signup.name,
           // passwordCheck : this.passwordCheck,
         }
-        const { data } = await registerUser(userData);
-        
-         if (this.id === "") {
-          alert("아이디를 입력하세요.");
-          
-        } else if (this.pw === "" ) {
-          alert("비밀번호를 입력하세요.");
-        } else if (this.availableid === false){
-          alert("다른 아이디를 입력해주세요.");
-          return;
-        } else if (this.passwordValidFlag === false) {
-          alert("비밀번호를 다시 입력해주세요.");
-          return;
-        } else if (this.availableid === false && this.passwordValidFlag === false) {
-          alert("아이디와 비밀번호를 다시 입력해주세요")
-          return;
+        if (this.name === "") {
+          window.alert("이름을 입력하세요");
+          return ;
         }
+        if (this.id === "") {
+          window.alert("아이디를 입력하세요");
+          return ;
+        }
+        if (this.pw === "" ) {
+          window.alert("비밀번호를 입력하세요.");
+          return ;
+        }
+        if (this.idValidFlag === false){
+          window.alert("아이디를 다시 입력해주세요.");
+          return ;
+        }
+        if (this.passwordValidFlag === false) {
+          window.alert("비밀번호를 다시 입력하세요.");
+          return ;
+        }
+        if(this.id == this.pw){
+          window.alert("아이디와 비번은 같을 수 없습니다.")
+          return ;
+        }
+        if(this.id == null || this.pw == null){
+          window.alert('필수값 누락')
+          return ;
+        }
+        if(!this.idValidFlag || !this.passwordValidFlag) {
+          window.alert('유효성 확인')
+          return ;
+        }
+          const { data } = await registerUser(userData);
 
           console.log("회원가입");
           console.log(userData)
           console.log(data)
 
-        if( data.message === '회원가입 실패'  ) {
+        if( data.message === '회원가입 실패' ) {
           alert("회원가입 실패.");
           return ;
         } else if(data.message === '회원가입 성공'){
@@ -180,6 +219,7 @@ export default {
   initForm() {
     this.id='';
     this.pw = '';
+    this.name ='';
   },
 
   

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@chrisheanan/vue-gauge": "^1.2.2",
+    "@inotom/vue-nav-drawer": "^1.2.0",
     "@jeremyhamm/vue-slider": "^0.2.0",
     "axios": "^0.26.1",
     "body-parser": "^1.20.0",

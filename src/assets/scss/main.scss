@@ -9,6 +9,9 @@ h3{
 body {
     margin: auto;
 }
+.red {
+    color:red;
+}
 .page {
     margin: 20px auto;
     box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
@@ -42,12 +45,15 @@ body {
     display: flex;
     justify-content: space-evenly;
 }
-.caption a {
+.caption1 { 
+    font-size: 15px;
+}
+.caption a, .caption1 a {
     text-decoration: none;
     color: rgb(131, 131, 131);
     margin-right: 0;
 }
-.caption a:hover {
+.caption a:hover, .caption1 a:hover {
     color: rgb(236, 107, 107);
 }
 .name, #id2,.id2, .password2,.passwordConfirm,.adnumber {
@@ -61,6 +67,10 @@ body {
     margin: 15px 0;
     background: none;
     border-bottom: 1px solid #000000;
+}
+#myid {
+    border: 1px solid #000000;
+    border-radius: 8px;
 }
 
 .cheak, .certi {
@@ -76,7 +86,7 @@ body {
     width: 100%;
     height: 50px;
     border: 0;
-    margin: 20px 0;
+    margin: 5px 0;
     border-radius: 50px;
     padding: 10px;
     font-size: 18px;
@@ -88,4 +98,28 @@ body {
 .btn button:hover {
     background: color #ffa5a5;
     box-shadow: 0 3px 6px rgb(255, 169, 169);
+}
+@media all and (max-width: 600px){
+    .page {
+        margin: 20px auto;
+        box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
+        width: 70%;
+        padding: 20px 40px;
+        border-width: 10px;
+      }
+      .btn button {
+        width: 100%;
+        height: 40%;
+        border: 0;
+        margin: 5px 0;
+        border-radius: 50px;
+        padding: 10px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.5s;
+        color: rgb(255, 255, 255);
+        background-color: #ffbdbd;
+    }
+      
+         
 }

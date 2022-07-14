@@ -22,7 +22,15 @@
 <script>
 export default {
     name: "CCTV",
+    mounted() {
+    let isLogin = this.$store.getters.isLogin;
+    console.log(isLogin);
 
+    if (!isLogin) { 
+        alert('로그인 후 이용하세요.');
+        this.$router.push('/login');
+    }
+  },
 }
 </script>
 
