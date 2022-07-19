@@ -1,16 +1,33 @@
 <template>
   <div class="wrap">
-    <h1>돈사환경</h1>
     <div class="sidebar">
         <ul class="sidemenu">
           <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
-          <li><a href="#"><router-link to="/donchart">그래프</router-link></a></li>
         </ul>  
     </div>
     <div>
       <body>
-        
-      <table>
+       <div>
+         <nav id="nav">
+          <a>온도</a>
+          <a><v-gauge
+            unit="℃"
+            :width="width"
+            :min="0"  
+            :max="100"  
+            :value="dbtemp" 
+            :options="options" /></a>
+            <a>습도</a>
+            <a><v-gauge 
+            unit="%"       
+            :width="width" 
+            :min="0" 
+            :max="100"  
+            :value="dbhumid" 
+            :options="options" /></a>     
+       </nav>
+       </div> 
+      <!-- <table>
         <thead class="tr">
           <tr >
             <th> </th>
@@ -27,7 +44,7 @@
           <td>{{ db.humid }}</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
       </body>
     </div>    
     <div class="footer">
@@ -44,6 +61,9 @@ import home from '../views/Home.vue';
 import mqttws31 from '@/plugins/mqttws31'
 import mqttws31min from '@/plugins/mqttws31-min'
 
+import VGauge from "vgauge";
+import Gauge from '@chrisheanan/vue-gauge';
+
 var mqttClient= null;
 var mqtt_host = "broker.hivemq.com";
 var mqtt_port = "8000";
@@ -52,9 +72,8 @@ var mqtt_topic = "SMT_IT/CCIT/SENSOR/TEMP";
 
 export default {
     name: "donserve",
-    componrnts: {
-        // Table,
-        home, mqttws31, mqttws31min
+    components: {
+        home, mqttws31, mqttws31min, VGauge, Gauge
     },
  
     data() {
@@ -62,14 +81,29 @@ export default {
         db:[],
         dbtemp:null,
         dbhumid:null,
+        dbgas:null,
+        
+      width: "300px",
+      options: {
+        pointer: {
+          length: 0.4,
+          strokeWidth: 0.035,
+          color: "#000000"
+        },
+        
+        limitMax: 100,
+        limitMin: 0,
+        colorStop: "#FF9CC2",
+        strokeColor: "#D75F8A",
+        generateGradient: true,
+        highDpiSupport: true
+      },
       }
     },
     mounted() {
     //   this.init();
     this.fncStartMqtt();
-    //  setInterval(() => {
-    //   if (this.x < 100) this.x += 5;
-    // }, 1000);
+
     let isLogin = this.$store.getters.isLogin;
     console.log(isLogin);
 
@@ -115,10 +149,6 @@ export default {
         this.dbtemp = this.db.temp;
         this.dbhumid = this.db.humid;
       },
-
-    //   mapActions({
-    //       init: 'dbInit'
-    //   });     
   },
 
 }
@@ -126,4 +156,5 @@ export default {
 
 <style scoped> 
 @import "C:\Users\sungm\WebstormProjects\cat-success\src\assets\scss\don.scss";
+@import "C:\Users\sungm\WebstormProjects\cat-success\src\assets\scss\home.scss";
 </style>

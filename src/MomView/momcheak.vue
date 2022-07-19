@@ -1,10 +1,9 @@
 <template>
 <div class="wrap">
-    <h1>모돈평가</h1>
     <div class="sidebar">
         <ul>
-          <li><a href="#"><router-link to="/momcheak">모돈평가</router-link></a></li>
-          <li><a href="#"><router-link to="/one">확인사항</router-link></a></li>
+          <li><a href="#"><router-link to="/momcheak">사료무게</router-link></a></li>
+          <li><a href="#"><router-link to="/one">모돈 확인사항</router-link></a></li>
         </ul>  
     </div>
     <div >
@@ -57,13 +56,13 @@ export default {
       }
     },
     mounted() {
-    let isLogin = this.$store.getters.isLogin;
-    console.log(isLogin);
+    // let isLogin = this.$store.getters.isLogin;
+    // console.log(isLogin);
 
-    if (!isLogin) { 
-        alert('로그인 후 이용하세요.');
-        this.$router.push('/login');
-    }
+    // if (!isLogin) { 
+    //     alert('로그인 후 이용하세요.');
+    //     this.$router.push('/login');
+    // }
   },
 
 }

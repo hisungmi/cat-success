@@ -1,5 +1,5 @@
 <template>
- 
+
     <div id="wrap">
       <header class="header fixed">
         <h1 class="logo">
@@ -8,16 +8,16 @@
         </h1>
         <div class="bar">
           <ul class="main-menu">
-            <li><a href="#">돈사환경</a>
-            <ul class="subemenu">
+            <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a>
+            <!-- <ul class="subemenu">
               <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
               <li><a href="#"><router-link to="/donchart">그래프</router-link></a></li>
-            </ul>
+            </ul> -->
             </li>
             <li><a href="#">개체관리</a>
             <ul class="subemenu">
-              <li><a><router-link to="/momcheak">모돈평가</router-link></a></li>
-              <li><a><router-link to="">확인사항</router-link></a>
+              <li><a><router-link to="/momcheak">사료무게</router-link></a></li>
+              <li><a><router-link to="">모돈 확인사항</router-link></a>
                 <ol class="ssubemenu">
                   <li><a><router-link to="/one">모돈 체평점</router-link></a></li>
                   <li><a><router-link to="/two">모돈 회음부</router-link></a></li>
@@ -45,11 +45,7 @@
           </ul>
           
         </div>
-        <nav-drawer-handle></nav-drawer-handle>
-        <nav-drawer>
-          MENU LIST
-        </nav-drawer>
-        <!-- <span class="menu-toggle-btn">
+<!--      <span class="menu-toggle-btn" >
           <span></span>
           <span></span>
           <span></span>
@@ -62,7 +58,7 @@
             <li>회원가입</li>
           </ul>
         </span> -->
-         <!-- <slider v-if="isUserLogin" class="menu-toggle-btn" 
+         <slider v-if="isUserLogin" class="menu-toggle-btn" 
          :width="200" 
          type = "submit"
          direction="right" 
@@ -77,7 +73,7 @@
          :opacity="0.15" 
          :customStyles="{'navMenu': {'background-color': 'black'}, 'navIcon': {'color': '#595959'}}"
          :links="[{'id': 1, 'text': '돈사환경', 'url': '/donserve'}, {'id': 2, 'text': '개체관리', 'url': '/momcheak'},{'id': 3, 'text': 'CCTV', 'url': '/CCTV'},{'id': 4, 'text': '로그인', 'url': '/login'}]">
-         </slider> -->
+         </slider>
 
 
         <!-- <div class="navMBtn"><a href="#"><span></span><span></span><span></span></a></div>
@@ -95,12 +91,10 @@
     </div>
 </template>
 
-<script src="vue.js"></script>
-<script src="vue-nav-drawer.min.js"></script>
 <script src="https://unpkg.com/@jeremyhamm/vue-slider"></script>
 <script>
 import Slider from '@jeremyhamm/vue-slider'
-import { NavDrawer, NavDrawerHandle } from '@inotom/vue-nav-drawer';
+
 
 export default {
   name: "headArea",
@@ -111,9 +105,6 @@ export default {
   },
   components: {
     'slider': Slider,
-    NavDrawer,
-    NavDrawerHandle
-    
   },
 
   computed: {
@@ -136,8 +127,6 @@ export default {
       this.showSlideMenu = false;
     }
   }
-  
-  
 };
 </script>
 
@@ -160,7 +149,7 @@ a {
   float: left;
   padding: 0;
   margin: 0;
-  padding-left: 10px;
+  padding-left: 15px;
   margin-top: auto;
   margin-bottom: auto;
 }
@@ -322,13 +311,16 @@ a {
   .header .menu-toggle-btn {
     display: none;
   }
-  .menu-toggle-btn span:hover .toggle-menu {
+  .menu-toggle-btn span:hover {
   opacity:1;
   visibility: visible;
 }
 .toggle-menu > li:hover {
   background-color: #ceb6b6;
+  opacity: 1;
+  visibility: visible;
 }
+
 
 }
 
@@ -341,16 +333,17 @@ a {
 .navMBtn {position: fixed;z-index: 6;right: 0;top: 0;}
 .navMBtn>a{display: block; padding: 5px;} 
 .navMBtn>a>span{display: block;width: 35px;height: 2.5px;background: #333;margin: 8px}
+
 }
 
-@media all and (min-width: 1132px) {
+@media all and (min-width: 1000px) {
   .header {
     grid-template-columns: 20% 80%;
   }
   
   .header .logo {
     padding: 10px 20px;
-    padding-left: 40px;
+    padding-left: 30px;
   }
   .header .main-menu li a {
     font-size: 20px;

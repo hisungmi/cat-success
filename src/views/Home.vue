@@ -10,36 +10,10 @@
     <!-- <span class="username">{{ $store.state.username }}</span> -->
     <!-- <donserve :dbchild="db"></donserve> -->
 
-    <div v-if="isUserLogin">
-    <nav id="nav">
-        <ul>
-            <li><a><v-gauge
-            unit="℃"
-            :width="width"
-            :min="0"  
-            :max="100"  
-            :value="dbtemp" 
-            :options="options" /></a>
-            </li>
-            <li><a><v-gauge 
-            unit="%"       
-            :width="width" 
-            :min="0" 
-            :max="100"  
-            :value="dbhumid" 
-            :options="options" /></a>
-            </li>
-            <li><a>{{ dbgas }}</a></li>
-       </ul>       
-    </nav>
+    <!-- <div v-if="isUserLogin"> -->
+   
     <nav id="nav1">
-        <div>
-          <h3>사료량</h3>
-          <ul>
-            <li>적다.</li>
-            <li>많다.</li>
-          </ul>
-        </div>
+        
         <div>
           <h3>알림현황</h3>
           <ul>
@@ -56,7 +30,7 @@
         </div>       
     </nav>
   </div>
-</div>
+<!-- </div> -->
 </body>
 </template>
 
@@ -68,8 +42,7 @@ import donserve from '@/DonView/donserve.vue'
 // import {mapState} from 'vuex';
 import mqttws31 from '@/plugins/mqttws31'
 import mqttws31min from '@/plugins/mqttws31-min'
-import VGauge from "vgauge";
-import Gauge from '@chrisheanan/vue-gauge';
+
 
 var mqttClient= null;
 var mqtt_host = "broker.hivemq.com";
@@ -80,30 +53,14 @@ var mqtt_topic = "SMT_IT/CCIT/SENSOR/TEMP";
 
 // import{ mapActions, mapState } from 'vuex'
 export default {
-  components: { App, donserve, mqttws31, mqttws31min, VGauge, Gauge},
+  components: { App, donserve, mqttws31, mqttws31min, },
 
   data() {
       return{
         db:[],
-        dbtemp:null,
-        dbhumid:null, 
-        dbgas:null,
-        
-      width: "300px",
-      options: {
-        pointer: {
-          length: 0.4,
-          strokeWidth: 0.035,
-          color: "#000000"
-        },
-        
-        limitMax: 100,
-        limitMin: 0,
-        colorStop: "#FF9CC2",
-        strokeColor: "#D75F8A",
-        generateGradient: true,
-        highDpiSupport: true
-      },
+        dbtemp:'',
+        dbhumid:'',
+        dbgas:'',
 
       };
   },
@@ -117,9 +74,7 @@ export default {
   mounted() {
     //   this.init();
     this.fncStartMqtt();
-    //  setInterval(() => {
-    //   if (this.x < 100) this.x += 5;
-    // }, 1000);
+
   },
   methods: {
        fncStartMqtt: function ()
@@ -158,11 +113,7 @@ export default {
         this.dbtemp = this.db.temp;
         this.dbhumid = this.db.humid;
         this.dbgas = this.db.gas;
-      },
-
-    //   mapActions({
-    //       init: 'dbInit'
-    //   });     
+      },   
   },
 };
 </script>

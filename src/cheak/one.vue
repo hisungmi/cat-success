@@ -1,10 +1,9 @@
 <template>
   <div class="wrap">
-    <h1>모돈 체평점</h1>
     <div class="sidebar">
         <ul>
-          <li><a href="#"><router-link to="/momcheak">모돈평가</router-link></a></li>
-          <li><a href="#"><router-link to="/one">확인사항</router-link></a></li>
+          <li><a href="#"><router-link to="/momcheak">사료무게</router-link></a></li>
+          <li><a href="#"><router-link to="/one">모돈 확인사항</router-link></a></li>
           <ol>
               <li><a><router-link to="/one">모돈 체평점</router-link></a></li>
               <li><a><router-link to="/two">모돈 회음부</router-link></a></li>
