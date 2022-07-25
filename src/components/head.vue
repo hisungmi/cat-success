@@ -4,7 +4,7 @@
       <header class="header fixed">
         <h1 class="logo">
           <a @click="goRouter('/')">
-          <img style="cursor: pointer" id="img" src="../assets/logo1.png"/></a>
+          <img style="cursor: pointer" src="../assets/logo1.png"/></a>
         </h1>
         <div class="bar">
           <ul class="main-menu">
@@ -39,26 +39,59 @@
               <li><a href="javascript:;" @click="logoutUser">로그아웃</a></li>
             </div>
             <div v-else class="sssube">
-              <li  ><router-link to="/login" id="lg" >로그인</router-link></li>
-              <li ><router-link to="/SignupForm" id="lg" >회원가입</router-link></li>
+              <li><router-link to="/login" id="lg" >로그인</router-link></li>
+              <li><router-link to="/SignupForm" id="lg" >회원가입</router-link></li>
             </div>
           </ul>
           
         </div>
-<!--      <span class="menu-toggle-btn" >
-          <span></span>
-          <span></span>
-          <span></span>
-          <ul class="toggle-menu">
-            <li>돈사환경</li>
-            <li>그래프</li>
-            <li>모돈평가</li>
-            <li>확인사항</li>
-            <li>로그인</li>
-            <li>회원가입</li>
+        <div v-if="isUserLogin">
+        <span class="menu-toggle-btn">
+          <button v-if="menuV" @click="showMenu(false)"><span></span>
+            <span></span>
+            <span></span></button>
+          <button  v-else @click="showMenu(true)" >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          </span>
+          <transition name="sliding">
+          <ul @click="showMenu(false)" class="slide" v-if="menuV">
+            <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
+            <li><a><router-link to="/momcheak">사료무게</router-link></a></li>
+            <li><a><router-link to="/one">모돈 확인사항</router-link></a></li>
+            <li><a><router-link to="/CCTV">CCTV</router-link></a></li>
+            <li><a><router-link to="/Mypage" > 마이페이지 </router-link></a></li>
+            <li><a href="javascript:;" @click="logoutUser">로그아웃</a></li>
           </ul>
-        </span> -->
-         <slider v-if="isUserLogin" class="menu-toggle-btn" 
+          </transition>
+          </div>
+
+          <div v-else>
+          <span class="menu-toggle-btn">
+          <button v-if="menuV" @click="showMenu(false)"><span></span>
+            <span></span>
+            <span></span></button>
+          <button  v-else @click="showMenu(true)" >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          </span>
+          <transition name="sliding">
+          <ul @click="showMenu(false)" class="slide" v-if="menuV">
+            <li><a href="#"><router-link to="/donserve">돈사환경</router-link></a></li>
+            <li><a><router-link to="/momcheak">사료무게</router-link></a></li>
+            <li><a><router-link to="/one">모돈 확인사항</router-link></a></li>
+            <li><a><router-link to="/CCTV">CCTV</router-link></a></li>
+            <li><a><router-link to="/login" >로그인</router-link></a></li>
+            <li><a><router-link to="/SignupForm" >회원가입</router-link></a></li>
+          </ul>
+          </transition>
+          </div>
+       
+         <!-- <slider v-if="isUserLogin" class="menu-toggle-btn" 
          :width="200" 
          type = "submit"
          direction="right" 
@@ -73,20 +106,7 @@
          :opacity="0.15" 
          :customStyles="{'navMenu': {'background-color': 'black'}, 'navIcon': {'color': '#595959'}}"
          :links="[{'id': 1, 'text': '돈사환경', 'url': '/donserve'}, {'id': 2, 'text': '개체관리', 'url': '/momcheak'},{'id': 3, 'text': 'CCTV', 'url': '/CCTV'},{'id': 4, 'text': '로그인', 'url': '/login'}]">
-         </slider>
-
-
-        <!-- <div class="navMBtn"><a href="#"><span></span><span></span><span></span></a></div>
-        <nav id="navM">
-          <ul class="toggle-menu">
-            <li>돈사환경</li>
-            <li>그래프</li>
-            <li>모돈평가</li>
-            <li>확인사항</li>
-            <li>로그인</li>
-            <li>회원가입</li>
-          </ul>
-        </nav> -->
+         </slider> -->
       </header>
     </div>
 </template>
@@ -111,8 +131,17 @@ export default {
     isUserLogin() {
       return this.$store.getters.isLogin;
     },
+    menuV(){
+      return this.$store.state.ui.rightMenu.visible;
+    }
   },
+  // mounted(){
+  //   console.log("[menu visible?]", this.$store.state.ui.rightMenu.visible)
+  // },
   methods: {
+    showMenu(visible) {
+        this.$store.state.ui.rightMenu.visible = visible;
+    },
     goRouter: function (v) {
       this.$router.push(v);
     },
@@ -184,7 +213,6 @@ a {
   display : flex;
   justify-content : space-evenly;
   align-items : center;
-
  }
 
 .main-menu > li> a {
@@ -241,11 +269,46 @@ a {
   flex-direction: column;
   
 }
-.toggle-menu{
-  display:none;
-  background: rgb(255, 208, 208);
-  opacity: 0;
-  visibility: hidden;
+.slide{
+    list-style: none;
+    margin: 0;
+    float: right;
+    width: 145px;
+    padding-top: 38px;
+    height: 290px;
+    background-color: silver;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide li {
+  display: flex;
+  margin: 10px;
+}
+.slide li a{
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+.sliding-enter {
+  transform: translateX(200px);
+}
+.sliding-enter-active {
+  transition: transform 0.5s ease;
+}
+.sliding-enter-to {
+  transform: translateX(0%);
+}
+
+ .sliding-leave {
+  transform: translateX(0%);
+  transform: translateX(200px);
+}
+.sliding-leave-active {
+  transition: transform 0.5s ease;
+}
+.sliding-leave-to {
+  transform: translateX(200px);
 }
 
 .header .menu-toggle-btn span {
@@ -315,26 +378,11 @@ a {
   opacity:1;
   visibility: visible;
 }
-.toggle-menu > li:hover {
-  background-color: #ceb6b6;
-  opacity: 1;
-  visibility: visible;
+.slide{
+  display:none;
+}
 }
 
-
-}
-
-@media all and (max-width: 600px) {
-#navM {
-    display: none;
-    position: fixed;right: 0;width: 70%;height: 100%;
-    background: #fff;box-shadow: 0 20px 15px rgba(0,0,0,.15);z-index: 5;
-}
-.navMBtn {position: fixed;z-index: 6;right: 0;top: 0;}
-.navMBtn>a{display: block; padding: 5px;} 
-.navMBtn>a>span{display: block;width: 35px;height: 2.5px;background: #333;margin: 8px}
-
-}
 
 @media all and (min-width: 1000px) {
   .header {

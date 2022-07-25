@@ -7,9 +7,7 @@
     <form v-else @submit.prevent="submitForm" class="form">
     <div class="box">
       <h3>로그인</h3>
-      <div class="id">
-        <v-text-field  v-model="name" ref="Name" label="Name"></v-text-field>
-      </div>
+      
       <div class="id">
         <v-text-field  v-model="id" ref="Id" label="Id"></v-text-field>
       </div>
@@ -29,6 +27,7 @@
 </template>
 <!-- @click="login()" -->
 <script>
+import { registerUser } from '@/api/index.js';
 import { loginUser } from '@/api/index.js';
 
 export default {  
@@ -54,17 +53,15 @@ export default {
       } else if(this.pw === "") {
         alert("비밀번호를 입력하세요.");
         return;
-      } else if(this.name === "") {
-        alert("이름을 입력하세요.");
-        return;
       }
-
+      
       try{
         const userData = {
           id: this.id,
           pw: this.pw,
           name: this.name,
       }
+        
         console.log('로그인')
         console.log( userData )
 
@@ -79,10 +76,9 @@ export default {
         alert("로그인 성공.");
         // this.$router.push('/');
         // 메인 페이지 이동
-        
         this.$store.commit('setUserid', userData.id);
-        this.$store.commit('setUsername', userData.name);
-        this.logMessage = `관리자 ${userData.name} 님 환영합니다.`;
+       
+        this.logMessage = `관리자 ${userData.id}님 환영합니다.`;
         return;
       }
       } catch (error) {

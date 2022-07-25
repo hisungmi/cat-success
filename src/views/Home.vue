@@ -3,16 +3,18 @@
 <div id="wrap">
     <header id="header">
         <h1 class="main">
-          <img style="cursor: pointer" id="img" src="../assets/home1.png"/>
+          <img style="cursor: pointer" src="../assets/home1.png"/>
         </h1>
+        
     </header>
     <img class="main2" src="../assets/pig.png" />
+    
     <!-- <span class="username">{{ $store.state.username }}</span> -->
     <!-- <donserve :dbchild="db"></donserve> -->
 
     <!-- <div v-if="isUserLogin"> -->
    
-    <nav id="nav1">
+    <!-- <nav id="nav1">
         
         <div>
           <h3>알림현황</h3>
@@ -28,7 +30,7 @@
             </li>
           </ul>
         </div>       
-    </nav>
+    </nav> -->
   </div>
 <!-- </div> -->
 </body>
@@ -69,6 +71,9 @@ export default {
       
       return this.$store.getters.isLogin;
     },
+    menuV(){
+      return this.$store.state.ui.rightMenu.visible;
+    }
   },
 
   mounted() {
@@ -121,13 +126,25 @@ export default {
 <style scoped>
 body{
     background-color: rgb(253, 201, 201);
-    height: 713px;
+    height: 700px;
 }
 
 img{
   width:100%;
 }
-
+.slide{
+    list-style: none;
+    margin: 0;
+    float: right;
+    width: 130px;
+    padding-top: 38px;
+    height: 798px;
+    background-color: silver;
+}
+.slide li{
+  display: flex;
+  margin: 10px;
+}
 @media all and (min-width: 600px){
 .main2{
   display: none;
@@ -165,7 +182,7 @@ img{
   justify-content: center;
 }
 #nav1 {
-    margin:90px;
+    margin:10px;
     padding:0;
     list-style: none;
     display: flex;

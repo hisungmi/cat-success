@@ -48,7 +48,7 @@
       </body>
     </div>    
     <div class="footer">
-        성미 010-7777-8888
+        꿀!사 관리자 번호 010-XXXX-XXXX
     </div>
 </div>
 </template>
@@ -81,23 +81,22 @@ export default {
         db:[],
         dbtemp:null,
         dbhumid:null,
-        dbgas:null,
+        dbgas:null,        
+        width: "300px",
+        options: {
+          pointer: {
+            length: 0.4,
+            strokeWidth: 0.035,
+            color: "#000000"
+          },
         
-      width: "300px",
-      options: {
-        pointer: {
-          length: 0.4,
-          strokeWidth: 0.035,
-          color: "#000000"
+          limitMax: 100,
+          limitMin: 0,
+          colorStop: "#FF9CC2",
+          strokeColor: "#D75F8A",
+          generateGradient: true,
+          highDpiSupport: true
         },
-        
-        limitMax: 100,
-        limitMin: 0,
-        colorStop: "#FF9CC2",
-        strokeColor: "#D75F8A",
-        generateGradient: true,
-        highDpiSupport: true
-      },
       }
     },
     mounted() {
@@ -105,8 +104,6 @@ export default {
     this.fncStartMqtt();
 
     let isLogin = this.$store.getters.isLogin;
-    console.log(isLogin);
-
     if (!isLogin) { 
         alert('로그인 후 이용하세요.');
         this.$router.push('/login');

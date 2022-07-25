@@ -200,6 +200,9 @@ export default {
           return ;
         } else if(data.message === '회원가입 성공'){
           alert("회원가입 성공.");
+          this.$store.commit('setUsername', userData.name);
+          // console.log(userData.name);
+          // console.log(this.$store.state.name);
           this.$router.push('/login');
           return;
         }

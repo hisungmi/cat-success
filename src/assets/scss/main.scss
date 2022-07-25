@@ -71,6 +71,7 @@ body {
 #myid {
     border: 1px solid #000000;
     border-radius: 8px;
+    width: 50%;
 }
 
 .cheak, .certi {
@@ -101,7 +102,7 @@ body {
 }
 @media all and (max-width: 600px){
     .page {
-        margin: 20px auto;
+        margin: 80px auto;
         box-shadow: 0 0 20px 0 rgb(0 0 0 / 20%), 0 5px 5px 0 rgb(0 0 0 / 24%);
         width: 70%;
         padding: 20px 40px;

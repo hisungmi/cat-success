@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <head-area />
+    
+    <!-- <SlideMenu v-if="menuV" /> -->
     <Menubar />
     <router-view />
     <!-- <LineChart /> -->
@@ -9,22 +11,23 @@
   </div>
 </template>
 
-<script src="vue.js"></script>
-<script src="vue-nav-drawer.min.js"></script>
 <script>
 import headArea from './components/head.vue';
 import Menubar from './components/menu.vue';
+import SlideMenu from './components/SlideMenu.vue';
+
 import PlanetChart from './components/PlanetChart.vue';
 import LineChart from './components/Line.vue';
 import VGauge from "vgauge";
 import {reactive} from "vue"
-// import Table from './components/Dth.vue';
+
 
 export default {
   name: 'App',
   components: {
     headArea,
     Menubar,
+    SlideMenu,
     PlanetChart,
     LineChart,
     VGauge,
@@ -53,6 +56,16 @@ data() {
       }
     };
   },
+  computed: {
+    menuV(){
+      return this.$store.state.ui.rightMenu.visible
+    }
+
+  },
+  mounted() {
+    console.log("[STORE]", this.$store);
+    //$store.state.ui
+  }
   
 };
 

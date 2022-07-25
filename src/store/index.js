@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import ui from "./ui";
 // import loginStore from "@/store/modules/login.js";
 // import DB from "@/mqtt.js";
 // import DB from "../db.json"
@@ -33,6 +34,6 @@ export default new Vuex.Store({
 
   },
   modules: {
-    // loginStore: loginStore
+    ui,
   },
 });

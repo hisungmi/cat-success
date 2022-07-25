@@ -8,7 +8,13 @@
     </div>
     <div >
     <body>
-      <table>
+      <div>
+        <nav id="nav">
+          <a>무게</a>
+        </nav>
+        
+      </div>
+      <!-- <table>
         <thead class="tr">
           <tr >
             <th> </th>
@@ -29,11 +35,11 @@
           <td>{{user.Breast}}</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </body>
     </div>    
     <div class="footer">
-        성미 010-7777-8888
+        꿀!사 관리자 번호 010-XXXX-XXXX
     </div>
 </div>
 </template>
@@ -56,13 +62,12 @@ export default {
       }
     },
     mounted() {
-    // let isLogin = this.$store.getters.isLogin;
-    // console.log(isLogin);
-
-    // if (!isLogin) { 
-    //     alert('로그인 후 이용하세요.');
-    //     this.$router.push('/login');
-    // }
+    let isLogin = this.$store.getters.isLogin;
+    
+    if (!isLogin) { 
+        alert('로그인 후 이용하세요.');
+        this.$router.push('/login');
+    }
   },
 
 }
